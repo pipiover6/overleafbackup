@@ -1,0 +1,90 @@
+%\documentclass[12pt]{book}
+\documentclass[oneside]{book}
+
+
+\usepackage[colorlinks]{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ %\usepackage{mathrsfs}
+%\newfontfamily{\englishfont}{Latin Modern Roman}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\II}{\mathscr{I}}
+\newcommand{\ideal}{\trianglelefteq}
+\newcommand{\set}[1]{\{ #1\}}
+\newcommand{\gen}[1]{\langle #1\rangle}
+\newcommand{\fit}[1]{\left( #1\right)}
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\dt}{\mathrm{d}t}
+\newcommand{\id}{\mathrm{id}}
+\newcommand\chap[1]{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}}
+
+
+
+\title{A book dedicated to lovers of mathematics}
+\author{}
+\date{version \the\year/\the\month/\the\day}
+
+\setlength{\parindent}{0pt}
+\begin{document}
+\maketitle
+
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = TABLE OF CONTENTS
+\tableofcontents
+
+\phantom{}\\
+Table of contents:  \\
+Chapter 0. Problems   \\
+Chapter 1. Euclidean Geometry  \\
+Chapter 2. Calculus  \\
+Chapter 3. Combinatorics and Probability    \\
+Chapter 4. Number Theory \\
+Chapter 5. Abstract Algebra    \\
+Chapter 6. Analysis  \\
+Chapter 7. Topology  \\
+Chapter -1. Solutions   \\
+Chapter -2. Notes   \\ 
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER 0 - PROBLEMS
+\chap{0. Problems}
+id aa. Consider the following stochastic process. First, a probability $p$ is drawn from a uniform distribution on $[0,1]$. Then $100$ independent coins are drawn, each with probability $p$ to show heads. Without integrals, determine the probability of seeing precisely $k$ heads.    \\\\
+id ab. A group of $n$ mathematicians will face the following challenge. Each will be given a hat showing an integer from $1,\dots,n$ (repetitions and misses allowed), and will be able to see the numbers written on all hats but their own. Once they see each other, and without any communication between them, they will all have to simultaneously guess the number written on their hat. They will win if at least one of them makes a correct guess. They have today to form a strategy that will guarantee a win. What do you suggest?   \\\\
+id ad. Let $f:\Z^\N\to\Z$ be an additive mapping (namely $f(x+y)=f(x)+f(y)$) from infinite integer sequences to integers. Show that $f(x_1,x_2,x_3,\dots)=\alpha_1 x_1+\dots+\alpha_N x_N$ for some finite integer sequence $\alpha_1,\dots,\alpha_N$.  
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER 2 - CALCULUS
+\chap{2. Calculus}
+This chapter emphasizes intuition over rigour. Proofs will later be given in the Analysis chapter.   \\\\
+id ac. Fact: For all $x\in\R$ we have $$\exp(x)=e^x=\sum_{n=0}^\infty \frac{x^n}{n!} = \lim_{n\to\infty}\fit{1+\frac{x}{n}}^n$$     \\\\
+
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER -1 - SOLUTIONS
+\chap{-1. Solutions}
+id aa. The probability is $1/101$, independent of $k=0,\dots,100$. To show this, note that we may generate a biased coin toss by generating a uniform random number $t$ from $[0,1]$ and then show heads iff $t<p$. Therefore the process can be described by generating $1+100$ independent uniform random numbers $p=t_0,t_1,\dots,t_{100}$ from $[0,1]$ and the number of heads is the index of $t_0$ after sorting, which is distributed uniformly in $0,\dots,100$.  \\\\
+id ab. First consider the case $n=2$. The two players have numbers in $0,1$, and see the other person's number. To guarantee a correct guess, one will guess they have the same number, and the other will guess they have different numbers. We generalize this to arbitrary $n$ by assigning the players id's $0,1,\dots,n-1$, and the player with id $i$ guessing that the sum of all their numbers is congruent to $i$ modulo $n$. This strategy guarantees exactly one of them will be right, namely the one with id equal to the sum of their numbers modulo $n$.     \\\\
+id ad. Let $e_n$ denote the $n$-th coordinate sequence, set $\alpha_n=f(e_n)$. We'll show that $\alpha_{N+1}=\alpha_{N+2}=\dots = 0$ after some value of $N$. To do this, we form a sequence $b=(b_1,b_2,b_3,\dots)$ as follows: $b_1=1$, and $b_{k+1}$ is a power of $2$ greater than both $b_k$ and $2\abs{f(b_1e_1+\dots+b_ke_k)}$. Note that $b_k\mid b_{k+1}$ and $\lim b=\infty$. Set $B=f(b)$. We have $B=f(b_1e_1+\dots+b_ke_k)+b_{k+1}f\fit{0..0,1,{b_{k+2}}/{b_{k+1}},{b_{k+3}}/{b_{k+1}},\dots}$. If $k$ is sufficiently large, we must have $B=f(b_1e_1+\dots+b_ke_k)$, or otherwise $|B|\ge b_{k+1} - \abs{f(b_1e_1+\dots+b_ke_k)}\ge b_{k+1}/2$. Therefore, if $k$ is sufficiently large, $\alpha_k=f(e_k)=0$. Now we may consider $g(x)=f(x)-\sum \alpha_i x_i$ as an additive function satisfying $g(e_n)=0$ for all $n$, and we wish to show $g(x)\equiv 0$. Write $x_n = 2^n d_n + 3^n r_n$ for some integer sequences $d,r$. We have $g(x)=g(2d_1,4d_2,8d_3,\dots)+g(3r_1,9r_2,27r_3,\dots)$, but since $g(e_n)=0$, the left summand is divisible by all powers of two, and the right summand is divisible by all powers of three, so they are both zero, and $g(x)\equiv0$.
+\end{document}
