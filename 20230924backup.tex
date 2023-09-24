@@ -20,6 +20,8 @@
 \newcommand{\N}{\mathbf{N}}
 \newcommand{\R}{\mathbf{R}}
 \newcommand{\C}{\mathbf{C}}
+\usepackage{mathrsfs}\newcommand{\CC}{\mathscr{C}}\newcommand{\FF}{\mathscr{F}}\newcommand{\LL}{\mathcal{L}}
+\newcommand{\T}{\mathbf{T}}
 \newcommand{\Q}{\mathbf{Q}}
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\II}{\mathscr{I}}
@@ -49,6 +51,7 @@
 
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = TABLE OF CONTENTS
+\pagestyle{empty}
 \tableofcontents
 
 \phantom{}\\
@@ -69,15 +72,112 @@ Chapter -2. Notes   \\
 % SECTION = CHAPTER 0 - PROBLEMS
 \chap{0. Problems}
 id aa. Consider the following stochastic process. First, a probability $p$ is drawn from a uniform distribution on $[0,1]$. Then $100$ independent coins are drawn, each with probability $p$ to show heads. Without integrals, determine the probability of seeing precisely $k$ heads.    \\\\
+
+
 id ab. A group of $n$ mathematicians will face the following challenge. Each will be given a hat showing an integer from $1,\dots,n$ (repetitions and misses allowed), and will be able to see the numbers written on all hats but their own. Once they see each other, and without any communication between them, they will all have to simultaneously guess the number written on their hat. They will win if at least one of them makes a correct guess. They have today to form a strategy that will guarantee a win. What do you suggest?   \\\\
-id ad. Let $f:\Z^\N\to\Z$ be an additive mapping (namely $f(x+y)=f(x)+f(y)$) from infinite integer sequences to integers. Show that $f(x_1,x_2,x_3,\dots)=\alpha_1 x_1+\dots+\alpha_N x_N$ for some finite integer sequence $\alpha_1,\dots,\alpha_N$.  
+
+
+id ad. Let $f:\Z^\N\to\Z$ be an additive mapping (namely $f(x+y)=f(x)+f(y)$) from infinite integer sequences to integers. Show that $f(x_1,x_2,x_3,\dots)=\alpha_1 x_1+\dots+\alpha_N x_N$ for some finite integer sequence $\alpha_1,\dots,\alpha_N$.  \\\\
+
+
+id ah. Let $f:[0,1]\to\R$ be a continuous function for which $\displaystyle\lim_{h\to0}\dfrac{f(t_0+h)+f(t_0-h)-2f(t_0)}{h^2}=0$ for all $t_0\in(0,1)$. Then $f(t)=\alpha t+\beta$ is linear.   \\\\
+
+
+id ai. Smooth (or even just continuous) homomorphisms $\phi:\R\to\GL_d(\C)$ are in $1:1$ correspondence with $A\in\C^{d\times d}$ via $$\phi(t)=\exp(At)$$ $$A=\dfrac{\d \phi(t)}{\d t}\biggr\rvert_{t=0}$$ \\
+
+
+id aj. Let $a_n$ be a sequence for which $\sum|a_nb_n|<\infty$ for all $b_n\in\ell^2$. Then $a_n\in\ell^2$.     \\\\
+
+
+id ak. A two player game goes as follows. Each player is given a number, drawn at random, independently, uniformly from $[0,1]$. A player may keep their number, or ask for another - in which case they must keep the second number. Then the two players reveal their numbers, and the player with the bigger number wins. Find the optimal playing strategy.     \\\\
+
+
+id al. $n$ ants are placed inside a circle of radius $R$, each is initially heading east,west,north, or south, and all ants have constant speed $1$. When two ants facing opposite directions collide, they both immediately turn $90$ degrees. Find the minimal length of time to guarantee all ants will leave the circle.        \\\\
+
+
+id am. Customers arrive to a store via a Poisson process (with some constant). For every arrival, the employee calculates the probability this will be the last customer of his shift. At the end of their shift, they write down the probability calculated for the last customer. Over many shifts, what is the distribution of probabilities?    \\\\
+
+
+id an. Two players take turns coloring the vertices of a graph. In the beginning, all vertices are white. Player 1 picks the first vertex and colors it black. Afterwards, the next player must color black a vertex that is currently white, and adjacent to the the last colored vertex. A player unable to do so losses the game. What property of the graph is equivalent to the first/second player having a winning strategy, and what is their strategy?     \\\\
+
+
+id ao. A very long road contains $n$ cars, each having a constant speed drawn at random from $20$ kmh to $200$ kmh. The road is narrow so there's no overtaking, so fast cars may have to slow down to match the speed of the car in front. Eventually, how many meshes of connected cars are to be expected?   \\\\
+
+
+id ap. Alice and Bob play the following game. There is an outer circle, fixed in position, containing $n$ lamps, and an inner circle, which may be rotated, containing the numbers $1..n$. Alice wins when all the lights are off, and Bob wins if she gives up/the game goes forever. Bob chooses the initial on/off states of the lamps. Every turn, Alice specifies a set of numbers in $1..n$ and tells Bob to switch the state (on $\leftrightarrow$ off) of the lamps corresponding to those positions, but Bob may spin the inner circle of numbers before doing so. For which values of $n$ can Alice/Bob win, and how?     \\\\
+
+
+id aq. A rectangular grid $R$ is painted using $10$ colors. A rectangle is called {\it special} if its four vertices have the same color. Find dimensions for $R$ guaranteeing the existence of a special rectangle.    \\\\
+
+
+id ar. There exists an uncountable family $\FF$ of infinite subsets of $\N$ where the intersection of any pair of sets in $\FF$ is finite.  \\\\
+
+id as. You find yourself in a huge circular train (say about the size of the equator) in which you can walk freely in both directions. You'll be free once you determine the exact number of cars, but you only have one guess. All the cars look exactly the same, and you can't leave any mark, except each car has a lamp with a switch which you may freely use. However, the initial state of the lamps is random. What do you do?   \\\\
+
+
+id at. An invisible frog lives on the integer number line, and each day it hops by a fixed unknown amount $d$. Every day you get one guess as to where the frog is, and if you hit it you win a prize. Find a strategy that guarantees you'll win the prize, eventually.\\\\
+Part ii. Now the frog moved to the real line, and still hops every day by a fixed amount. It also gained an unknown small but positive length $\eps$. What's your strategy? \\\\
+
+
+id au. A standard $2$-dimensional Gaussian is given in polar coordinates by $\sqrt{2\log(1/u)}(\cos2\pi\theta,\sin2\pi\theta)$ where $u,\theta$ are independent and uniform on $[0,1]$.
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER 2 - CALCULUS
 \chap{2. Calculus}
 This chapter emphasizes intuition over rigour. Proofs will later be given in the Analysis chapter.   \\\\
+
+
 id ac. Fact: For all $x\in\R$ we have $$\exp(x)=e^x=\sum_{n=0}^\infty \frac{x^n}{n!} = \lim_{n\to\infty}\fit{1+\frac{x}{n}}^n$$     \\\\
+
+
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER 6 - ANALYSIS
+\chap{6. Analysis}
+Nomenclature. A function $f$ defined on the vertices of a graph will be called {\it{harmonic}} if for every vertex $v$ the average value of $f(u)$ over the neighbours $u$ of $v$ equals $f(v)$.  \\\\
+
+
+id ae. Fact: Let $f$ be a real valued harmonic function on the lattice $\Z^d$. If $f$ is non-constant, then it is unbounded. \\\\
+
+
+id ae. Explanation: If $f$ is non-constant, then wlog the bounded harmonic function $g(x)=f(x+e_1)-f(x)$ attains a positive value. Let $S=\sup g > 0$. Given $\eps$ we may find $x_\eps$ for which $g(x_\eps)>S-\eps$. Since the average of $g$ over the $2d$ neighbours of $x_\eps$ is larger than $S-\eps$, and each value is at most $S$, it follows that $g$ assigns each neighbour a value greater than $S-2d\eps$. Thus $g(x_\eps + e_1) > S-2d\eps$, and generally $g(x_\eps + ke_1) > S-(2d)^k\eps$. However, if we pick $k$ large enough and $\eps$ small enough, we can make $f(x+(k+1)e_1)-f(x)=g(x)+g(x+e_1)+\dots+g(x+ke_1) > (k+1)(S-(2d)^k\eps)$ arbitrarily large, meaning $f$ is unbounded.    \\\\
+
+
+id af. Fact: Let $T$ be a strict contraction of a complete metric space $M$. Then in $M$ there exists a unique fixed point $m^*$ of $T$. Moreover, for any $m\in M$ we have $\displaystyle\lim_{n\to\infty} T^{ n}(m)=m^*$. \\\\
+
+
+id af. Explanation: A strict contraction clearly cannot have more than one fixed point. Let $m$ be an arbitrary point, and let $m_n=T^n(m)$ be its orbit under $T$. We have $d(m_n,m_{n+1})\le q^{n}d(m,Tm)$, where $q$ is the contraction constant for $T$. Thus $\sum d(m_n,m_{n+1}) \le \frac{d(m,Tm)}{1-q}$ is convergent, implying $m_n$ is Cauchy, and hence convergent. By continuity, the limit of the orbit is a fixed point.  \\\\
+
+
+id av. Fact: The Fourier transform is injective on $\LL^1(\R)$.     \\\\
+
+
+id av. Explanation: Let $f\in\LL^1, \hat{f}\equiv 0$. For all $a,\xi\in\R$ we have
+$$\int_{-\infty}^a f(t)e^{i\xi(t-a)}\d t=-\int_a^\infty f(t)e^{i\xi(t-a)}\d t$$
+and we denote this value by $F_a(\xi)$. The right hand side may be analytically continued to arguments in the closed upper half plane, and the left hand side may be continued to the closed lower half plane. It follows that $F_a(\xi)$ is an entire function. However, it is everywhere bounded by $\norm{f}_1$, and so must be constant. By dominated convergence we have $\lim_{r\to\infty} F_a(ir)=0$, and so $F_a(\xi)=0$. In particular $\int_{-\infty}^a f(t)\d t=F_a(0)=0$ for all $a$ and so $f=0$ almost everywhere.    \\\\
+
+
+id ag. Fact: Let $f\in\CC(\T)$ and let $F_m(t)=\displaystyle\sum_{j=-m}^m \hat{f}(j) e^{2\pi i jt}$ be the Fourier approximations of $f$. Then the sequence of averages $\sigma_n(t)=\dfrac{F_0(t)+\dots +F_n(t)}{n+1}$ converges uniformly to $f$. \\\\
+
+
+id aq. Explanation: We have
+$\hat{f}(j)e^{2\pi ijt}=\int_0^1 f(x)e^{2\pi i j(t-x)}\d x=\int_{-t}^{1-t}f(u+t)e^{-2\pi i j u}\d u=\int_{0}^{1}f(u+t)e^{-2\pi i j u}\d u$
+and therefore 
+$$F_m(t)=\int_0^1 f(u+t) P_m(u)\d u \phantom{---} \sigma_n(t)=\int_0^1 f(u+t) D_n(u)\d u $$
+For
+$$P_m(u)=\sum_{j=-m}^m e^{2\pi i j u} \phantom{---} D_n(u)=\dfrac{P_0(u)+\dots+P_n(u)}{n+1}$$
+We have the identities $\displaystyle \int_0^1 D_n(u)=1$ and
+$\displaystyle (n+1)D_n(u)=\fit{\sum_{k=0}^n e^{2\pi i(k-\frac{n}{2})u}}^2=\fit{\dfrac{\sin(\pi(n+1)u)}{\sin(\pi u)}}^2\ge0$. (To clarify, $D_n(u)=n+1$ for $u\in\Z$).
+We continue
+$$\sigma_n(t)-f(t)=\int_0^1  [f(u+t)-f(t)] D_n(u)\d u\implies \abs{\sigma_n(t)-f(t)}\le\int_0^1  \abs{f(u+t)-f(t)} D_n(u)\d u $$
+Given $\eps$ we find $\delta$ such that
+$\abs{x-y}\le\delta\implies\abs{f(x)-f(y)}\le\eps$.
+The first part of the integral is bounded independent of $n$ or $t$: $ \int_{-\delta}^{\delta}  \abs{f(u+t)-f(t)} D_n(u)\d u\le \eps  \int_{0}^{1} D_n(u)\d u=\eps$. Finally, on $[\delta,1-\delta]$ we have $D_n(u)\le \dfrac{1}{(n+1)\sin(\pi\delta)^2}$
+and so if $n$ is large enough then $D_n(u)\le \eps$ on this segment, and in total 
+$\abs{\sigma_n(t)-f(t)}\le \eps+2\norm{f}_\infty\eps$
+independent of $t$.
 
 
 \newpage
@@ -85,6 +185,29 @@ id ac. Fact: For all $x\in\R$ we have $$\exp(x)=e^x=\sum_{n=0}^\infty \frac{x^n}
 % SECTION = CHAPTER -1 - SOLUTIONS
 \chap{-1. Solutions}
 id aa. The probability is $1/101$, independent of $k=0,\dots,100$. To show this, note that we may generate a biased coin toss by generating a uniform random number $t$ from $[0,1]$ and then show heads iff $t<p$. Therefore the process can be described by generating $1+100$ independent uniform random numbers $p=t_0,t_1,\dots,t_{100}$ from $[0,1]$ and the number of heads is the index of $t_0$ after sorting, which is distributed uniformly in $0,\dots,100$.  \\\\
+
+
 id ab. First consider the case $n=2$. The two players have numbers in $0,1$, and see the other person's number. To guarantee a correct guess, one will guess they have the same number, and the other will guess they have different numbers. We generalize this to arbitrary $n$ by assigning the players id's $0,1,\dots,n-1$, and the player with id $i$ guessing that the sum of all their numbers is congruent to $i$ modulo $n$. This strategy guarantees exactly one of them will be right, namely the one with id equal to the sum of their numbers modulo $n$.     \\\\
-id ad. Let $e_n$ denote the $n$-th coordinate sequence, set $\alpha_n=f(e_n)$. We'll show that $\alpha_{N+1}=\alpha_{N+2}=\dots = 0$ after some value of $N$. To do this, we form a sequence $b=(b_1,b_2,b_3,\dots)$ as follows: $b_1=1$, and $b_{k+1}$ is a power of $2$ greater than both $b_k$ and $2\abs{f(b_1e_1+\dots+b_ke_k)}$. Note that $b_k\mid b_{k+1}$ and $\lim b=\infty$. Set $B=f(b)$. We have $B=f(b_1e_1+\dots+b_ke_k)+b_{k+1}f\fit{0..0,1,{b_{k+2}}/{b_{k+1}},{b_{k+3}}/{b_{k+1}},\dots}$. If $k$ is sufficiently large, we must have $B=f(b_1e_1+\dots+b_ke_k)$, or otherwise $|B|\ge b_{k+1} - \abs{f(b_1e_1+\dots+b_ke_k)}\ge b_{k+1}/2$. Therefore, if $k$ is sufficiently large, $\alpha_k=f(e_k)=0$. Now we may consider $g(x)=f(x)-\sum \alpha_i x_i$ as an additive function satisfying $g(e_n)=0$ for all $n$, and we wish to show $g(x)\equiv 0$. Write $x_n = 2^n d_n + 3^n r_n$ for some integer sequences $d,r$. We have $g(x)=g(2d_1,4d_2,8d_3,\dots)+g(3r_1,9r_2,27r_3,\dots)$, but since $g(e_n)=0$, the left summand is divisible by all powers of two, and the right summand is divisible by all powers of three, so they are both zero, and $g(x)\equiv0$.
+
+
+id ad. Let $e_n$ denote the $n$-th coordinate sequence, set $\alpha_n=f(e_n)$. We'll show that $\alpha_{N+1}=\alpha_{N+2}=\dots = 0$ after some value of $N$. To do this, we form a sequence $b=(b_1,b_2,b_3,\dots)$ as follows: $b_1=1$, and $b_{k+1}$ is a power of $2$ greater than both $b_k$ and $2\abs{f(b_1e_1+\dots+b_ke_k)}$. Note that $b_k\mid b_{k+1}$ and $\lim b=\infty$. Set $B=f(b)$. We have $B=f(b_1e_1+\dots+b_ke_k)+b_{k+1}f\fit{0..0,1,{b_{k+2}}/{b_{k+1}},{b_{k+3}}/{b_{k+1}},\dots}$. If $k$ is sufficiently large, we must have $B=f(b_1e_1+\dots+b_ke_k)$, or otherwise $|B|\ge b_{k+1} - \abs{f(b_1e_1+\dots+b_ke_k)}\ge b_{k+1}/2$. Therefore, if $k$ is sufficiently large, $\alpha_k=f(e_k)=0$. Now we may consider $g(x)=f(x)-\sum \alpha_i x_i$ as an additive function satisfying $g(e_n)=0$ for all $n$, and we wish to show $g(x)\equiv 0$. Write $x_n = 2^n d_n + 3^n r_n$ for some integer sequences $d,r$. We have $g(x)=g(2d_1,4d_2,8d_3,\dots)+g(3r_1,9r_2,27r_3,\dots)$, but since $g(e_n)=0$, the left summand is divisible by all powers of two, and the right summand is divisible by all powers of three, so they are both zero, and $g(x)\equiv0$. \\\\
+
+
+id ah. Subtracting a linear factor, we may assume $f(0)=f(1)=0$, with the intention of showing $f\equiv 0$. Let $f_\eps(t)=f(t)-\eps t(1-t)$. Then $\displaystyle\lim_{h\to 0}\dfrac{f_\eps(t_0+h)-2f_\eps(t_0)+f_\eps(t_0-h)}{h^2}=\eps$, implying $f_\eps$ does not attain its maximum at any inner point $t_0\in(0,1)$. Therefore $f_\eps\le 0$, and in the limit $f\le 0$. Applying the same to $-f$ we have $f\equiv 0$.   \\\\
+
+
+id ai. What demands proof is that all smooth/continuous homomorphisms are exponentials. Indeed, for $\phi$ smooth $$\phi(s+t)=\phi(s)\phi(t)\implies \phi'(s+t)=\phi'(s)\phi(t)\implies \phi'(t)=\phi'(0)\phi(t)\implies\phi(t)=\exp(t\phi'(0))$$
+It remains to show that a continuous homomorphism is smooth. Indeed, we have $\int_x^{x+a}\phi(t)\d t=\phi(x)\int_0^a\phi(t)\d t$. We pick a small enough $a$ so that $\frac{1}{a}\int_0^a\phi(t)\d t=\id + o(1)$ is invertible, yielding
+$$\phi(x)=\fit{\int_x^{x+a}\phi(t)\dt}\fit{\int_0^a\phi(t)\dt}\inv$$
+is smooth.  \\\\
+
+
+id aj. Suppose $\sum a_n^2$ diverges, and form a partition $0=N_0<N_1<\dots$ for which $s_k=\sum_{(N_{k-1},N_k]}a_n^2 > 1$. The sequence $b_n=a_n/ks_k$ (where $n\in (N_{k-1},N_k]$) is in $\ell^2$, since $\sum b_n^2=\sum_k \frac{1}{k^2s_k}$. However, $\sum a_nb_n=\sum_k 1/k$ diverges.
+
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER -2 - NOTES
+\chap{-2. Notes}
+id av. The given explanation is attributed to Donald Newman.
 \end{document}
