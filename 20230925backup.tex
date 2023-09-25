@@ -19,6 +19,8 @@
 \newcommand{\Z}{\mathbf{Z}}
 \newcommand{\N}{\mathbf{N}}
 \newcommand{\R}{\mathbf{R}}
+\renewcommand{\P}{\mathbf{P}}
+\newcommand{\E}{\mathbf{E}}
 \newcommand{\C}{\mathbf{C}}
 \usepackage{mathrsfs}\newcommand{\CC}{\mathscr{C}}\newcommand{\FF}{\mathscr{F}}\newcommand{\LL}{\mathcal{L}}
 \newcommand{\T}{\mathbf{T}}
@@ -35,6 +37,14 @@
 \renewcommand{\d}{\mathrm{d}}
 \newcommand{\dt}{\mathrm{d}t}
 \newcommand{\id}{\mathrm{id}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\spc}{\phantom{-}}
+\newcommand{\str}{^*}
+\renewcommand{\i}{{\it i}. }
+\newcommand{\ii}{{\it ii}. }
+\newcommand{\iii}{{\it iii}. }
+
+
 \newcommand\chap[1]{%
   \chapter*{#1}%
   \addcontentsline{toc}{chapter}{#1}}
@@ -59,8 +69,8 @@ Table of contents:  \\
 Chapter 0. Problems   \\
 Chapter 1. Euclidean Geometry  \\
 Chapter 2. Calculus  \\
-Chapter 3. Combinatorics and Probability    \\
-Chapter 4. Number Theory \\
+Chapter 3. Number Theory \\
+Chapter 4. Combinatorics and Probability    \\
 Chapter 5. Abstract Algebra    \\
 Chapter 6. Analysis  \\
 Chapter 7. Topology  \\
@@ -119,7 +129,17 @@ id at. An invisible frog lives on the integer number line, and each day it hops 
 Part ii. Now the frog moved to the real line, and still hops every day by a fixed amount. It also gained an unknown small but positive length $\eps$. What's your strategy? \\\\
 
 
-id au. A standard $2$-dimensional Gaussian is given in polar coordinates by $\sqrt{2\log(1/u)}(\cos2\pi\theta,\sin2\pi\theta)$ where $u,\theta$ are independent and uniform on $[0,1]$.
+id au. A standard $2$-dimensional Gaussian is given in polar coordinates by $\sqrt{2\log(1/u)}(\cos2\pi\theta,\sin2\pi\theta)$ where $u,\theta$ are independent and uniform on $[0,1]$. \\\\
+
+id aw. There's a deck with $100$ numbered $1..100$ in some order. In each step we peek at the top card, say numbered $k$, take the first $k$ cards from the deck, flip their order, and return them at the top of the deck. In particular, after this move the $k$-th card now shows $k$. Show that eventually the top card becomes $1$.  \\\\
+
+
+id ay. Let $f:[0,1]\to\R$ be a continuous function satisfying $\int_0^1 f(x)x^k=1$ for $k=0,\dots,n-1$. What is the best lower bound on $\int_0^1 f^2$? \\\\
+
+
+id bd. From each vertex of a triangle, extend the two edges by the length of the opposite edge, then the six endpoints lie on a circle with center $I$ and radius $\sqrt{r^2+s^2}$.
+
+
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
@@ -131,6 +151,46 @@ This chapter emphasizes intuition over rigour. Proofs will later be given in the
 id ac. Fact: For all $x\in\R$ we have $$\exp(x)=e^x=\sum_{n=0}^\infty \frac{x^n}{n!} = \lim_{n\to\infty}\fit{1+\frac{x}{n}}^n$$     \\\\
 
 
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER 3 - NUMBER THEORY
+\chap{3. Number Theory}
+id ax. Fact: We have $\lcm(1,\dots,n)\ge 2^{n-2}$ for all $n$.    \\\\
+
+
+id ax. Explanation: Consider $I=\int_0^1 t^m(1-t)^m\d t$. We have $I=\dfrac{r}{\lcm(1,\dots,2m+1)}$ for some positive integer $r$, as well as $I\le 4^{-m}$. Thus $4^{m}\le \lcm(1,\dots,2m+1)$.
+
+
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER 4 - COMBINATORICS AND PROBABILITY
+\chap{4. Combinatorics and Probability}
+id az. Fact: A monkey is typing letters uniformly at random. The the expected number of letters until ABRACADABRA is typed equals $26+26^4+26^{11}$.    \\\\
+
+
+id az. Explanation. Imagine a casino where gamblers can bet on the next letter. There are $26$ letters and the casino gives fair odds, meaning a gambler can pay the casino $\$x$ dollars and bet that the next letter will be $y$. If the bet was right he will get back $\$ 26x$. Now imagine that before every letter, a new gambler arrives with $\$1$ and bets all their money that the next $11$ letters will be ABRACADABRA (of course this will take several turns, the first putting down $\$1$ on the first letter being A. If the bet works out, the next bet would be $\$26$ dollars on the next letter being B, and so on). Starting with $\$0$, let $X_n$ be the cash of the casino after the $n$ letter was typed. Let $T$ be the stopping time - when ABRACADABRA is first typed. Then $X_n$ is a martingale with bounded differences, $\E T<\infty$ and so $\E X_T= \E X_0 = \$0$. Let's consider the cash after time $T$. Every unsuccessful gambler lost $\$1$ to the casino. There are $3$ successful gamblers, who put in an initial $\$1$ and took $26+26^4+26^{11}$ from the casino. In total, $X_{T}=T-26+26^4+26^{11}$.    \\\\
+
+
+Nomenclature. In a {\it branching process} of microbes, the $0$-th generation consists of a single microbe, and each microbe gives birth to a number of children, randomly generated from a fixed distribution $X$ (taking non-negative integer values) independently of all other microbes. In formula, $Z_0=1$, and $Z_{n+1}=A_{1,n}+\dots+A_{Z_n,n}$, where $A_{i,j}\sim X$ are independent.    \\\\
+
+
+id bb. Fact: Let $(X,Z_n)_{n=0}^\infty$ be a branching process, and set $f(\theta)=\E[\theta^X]$, $g_n(\theta)=\E[\theta^{Z_n}]$ for $\theta\in[0,1]$. Then \\
+\i $g_n=f\circ f\dots \circ f$ is the $n$-th composition of $f$.\\
+\ii The {\it probability of extinction} $p=\P[Z_m=0 \spc \text{for some }m]$ is the smallest non-negative fixed point of $f$.   \\\\
+
+
+
+
+\newpage
+%   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
+% SECTION = CHAPTER 5 - ABSTRACT ALGEBRA
+\chap{5. Abstract Algebra}
+id ba. Fact: If $A$ is a Noetherian ring then $A[t]$ is a Noetherian ring.  \\\\
+
+
+    id ba. Explanation: Fix an ideal $\II\ideal A[t]$. A best effort attempt to generate $\II$ is as follows: as long as $f_1(t),...,f_{n-1}(t)$ don't generate $\II$, let $f_n(t)$ be the polynomial of minimal degree in $\II$ and not in $\gen{f_1(t),\dots,f_{n-1}(t)}$. Note that $d_n=\deg f_n(t)$ is weakly increasing, and that the leading coefficient of $f_n(t)$ does not belong to the ideal of $A$ generated by the leading coefficients of  $f_1(t),..,f_{n-1}(t)$, for otherwise there are $a_1,\dots,a_{n-1}\in A$ for which $g(t)=f_n(t)-a_1f_1(t)t^{d_n-d_1}\dots-a_{n-1}f_{n-1}(t)t^{d_n-d_{n-1}}$ has degree smaller than $f_n(t)$ and is also member of $\II\setminus \gen{f_1(t),..,f_n(t)}$, which can't be. It follows that the sequence of ideals of $A$ generated by the leading coefficients of $f_1(t),\dots,f_n(t)$ is strictly increasing, and $A$ is not Noetherian.
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
@@ -177,8 +237,15 @@ $\abs{x-y}\le\delta\implies\abs{f(x)-f(y)}\le\eps$.
 The first part of the integral is bounded independent of $n$ or $t$: $ \int_{-\delta}^{\delta}  \abs{f(u+t)-f(t)} D_n(u)\d u\le \eps  \int_{0}^{1} D_n(u)\d u=\eps$. Finally, on $[\delta,1-\delta]$ we have $D_n(u)\le \dfrac{1}{(n+1)\sin(\pi\delta)^2}$
 and so if $n$ is large enough then $D_n(u)\le \eps$ on this segment, and in total 
 $\abs{\sigma_n(t)-f(t)}\le \eps+2\norm{f}_\infty\eps$
-independent of $t$.
+independent of $t$.     \\\\
 
+
+id bc. Fact: Let $b,m,n$ be elements of a $C\str$ algebra with $m,n$ normal and $bn=mb$. Then $bn\str=m\str b$. \\\\
+
+
+id bc. Explanation: We have $bn^k=m^kb$, and so $bf(n)=f(m)b$ for analytic functions $f$. In particular $b=\exp(\xi m)b\exp(-\xi n)$ for all $\xi\in\C$. Normality yields
+$$\exp(i\zeta m\str)b\exp(-i\zeta n\str) = \exp(i(\zeta m\str + \zeta\str m))b\exp(-i(\zeta^* n-\zeta n\str))$$
+The rhs is an entire function of $\zeta$, and the lhs is bounded by $\norm{b}$, and so the expression is a constant, namely $b$. Finally, the lhs coefficient of $\zeta$ is $im\str b-ibn\str$.
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
@@ -202,12 +269,20 @@ $$\phi(x)=\fit{\int_x^{x+a}\phi(t)\dt}\fit{\int_0^a\phi(t)\dt}\inv$$
 is smooth.  \\\\
 
 
-id aj. Suppose $\sum a_n^2$ diverges, and form a partition $0=N_0<N_1<\dots$ for which $s_k=\sum_{(N_{k-1},N_k]}a_n^2 > 1$. The sequence $b_n=a_n/ks_k$ (where $n\in (N_{k-1},N_k]$) is in $\ell^2$, since $\sum b_n^2=\sum_k \frac{1}{k^2s_k}$. However, $\sum a_nb_n=\sum_k 1/k$ diverges.
+id aj. Suppose $\sum a_n^2$ diverges, and form a partition $0=N_0<N_1<\dots$ for which $s_k=\sum_{(N_{k-1},N_k]}a_n^2 > 1$. The sequence $b_n=a_n/ks_k$ (where $n\in (N_{k-1},N_k]$) is in $\ell^2$, since $\sum b_n^2=\sum_k \frac{1}{k^2s_k}$. However, $\sum a_nb_n=\sum_k 1/k$ diverges.    \\\\
+
+
+id aw. The number $100$ can only be the top card once, after that it will stay forever at the bottom. Between any two times the number $99$ is on top, $100$ has to be on top. Between any two times the number $98$ is on top, either $100$ or $99$ has to be on top, ..., between any two times the number $2$ is on top a number bigger than $2$ has to be on top. Therefore each number except for $1$ can only be on top finitely many times.  \\
+
+id aw. Solution 2. If $100$ ever becomes the top card, it'll later be stuck at the bottom. If not, the bottom card will never change, and the game will be indifferent to switching the numbers of the bottom card with $100$. So in either case we have an induction step.
 
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER -2 - NOTES
 \chap{-2. Notes}
-id av. The given explanation is attributed to Donald Newman.
+id av. The given explanation is attributed to D.J. Newman.    \\\\
+
+
+id ax. The given explanation is attributed to M. Nair.
 \end{document}
