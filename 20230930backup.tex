@@ -1,8 +1,11 @@
 %\documentclass[12pt]{book}
 \documentclass[oneside]{book}
 
-
-\usepackage[colorlinks]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue
+}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{geometry}
@@ -14,9 +17,16 @@
  }
  %\usepackage{mathrsfs}
 %\newfontfamily{\englishfont}{Latin Modern Roman}
+\renewcommand{\empty}{\varnothing}
+\newcommand{\len}{\mathrm{len}}
+\newcommand{\vol}{\mathrm{Vol}}
+\newcommand{\sub}{\subseteq}
+\newcommand{\tabb}{\phantom{aaaa}}
+\newcommand{\inner}[1]{\langle #1\rangle}
 
 \newcommand{\eps}{\varepsilon}
 \newcommand{\Z}{\mathbf{Z}}
+\newcommand{\F}{\mathbf{F}}
 \newcommand{\N}{\mathbf{N}}
 \newcommand{\R}{\mathbf{R}}
 \renewcommand{\P}{\mathbf{P}}
@@ -36,15 +46,19 @@
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert}
 \renewcommand{\d}{\mathrm{d}}
 \newcommand{\dt}{\mathrm{d}t}
+\newcommand{\Exp}{\mathrm{Exp}}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\var}{\mathrm{Var}}
+\renewcommand{\span}{\mathrm{span}}
 \newcommand{\spc}{\phantom{-}}
 \newcommand{\str}{^*}
 \renewcommand{\i}{{\it i}. }
 \newcommand{\ii}{{\it ii}. }
 \newcommand{\iii}{{\it iii}. }
-
-
+\newcommand{\iv}{{\it iv}. }
+\renewcommand{\v}{{\it v}. }
+\newcommand{\nin}{\not\in}
 \newcommand\chap[1]{%
   \chapter*{#1}%
   \addcontentsline{toc}{chapter}{#1}}
@@ -137,7 +151,13 @@ id aw. There's a deck with $100$ numbered $1..100$ in some order. In each step w
 id ay. Let $f:[0,1]\to\R$ be a continuous function satisfying $\int_0^1 f(x)x^k=1$ for $k=0,\dots,n-1$. What is the best lower bound on $\int_0^1 f^2$? \\\\
 
 
-id bd. From each vertex of a triangle, extend the two edges by the length of the opposite edge, then the six endpoints lie on a circle with center $I$ and radius $\sqrt{r^2+s^2}$.
+id bd. From each vertex of a triangle, extend the two edges by the length of the opposite edge, then the six endpoints lie on a circle with center $I$ and radius $\sqrt{r^2+s^2}$. \\\\
+
+
+id bq. If $a_n\to a$ then $\fit{1+\frac{a_n}{n}}^n\to e^a$. \\\\
+
+
+id br. A betting game with odds $p>1/2$ in your favour goes as follows. In each round, you may wager an amount $x$ of your capital. If the odds were right you get back $2x$, and if not you lose the initial $x$. You start with $\$1$ and the game goes for $n$ rounds. What strategy should be played to maximize the expected value of your capital at the end of the game? What about maximizing the expected value of the $\log$ of your capital.
 
 
 
@@ -150,6 +170,12 @@ This chapter emphasizes intuition over rigour. Proofs will later be given in the
 
 id ac. Fact: For all $x\in\R$ we have $$\exp(x)=e^x=\sum_{n=0}^\infty \frac{x^n}{n!} = \lim_{n\to\infty}\fit{1+\frac{x}{n}}^n$$     \\\\
 
+
+Nomenclature. The {\it Laplace transform} of a bounded continuous function $f:[0,\infty)\to\R$ is $$(\LL[f])(\lambda)=\int_0^\infty e^{-\lambda x}f(x)\d x$$
+defined for $\lambda > 0$. \\\\
+
+
+id bi. Fact: We have $$\LL[f'](\lambda)=\lambda\LL[f] - f(0)$$ 
 
 
 \newpage
@@ -181,17 +207,121 @@ id bb. Fact: Let $(X,Z_n)_{n=0}^\infty$ be a branching process, and set $f(\thet
 \ii The {\it probability of extinction} $p=\P[Z_m=0 \spc \text{for some }m]$ is the smallest non-negative fixed point of $f$.   \\\\
 
 
+id bg. Fact: If the edges of $K_n$ are exactly covered by the edges of $m$ complete bi-partite graphs, then $m\ge n-1$.    \\\\
+
+
+id bg. Explanation: Suppose $E(K_n)=\bigsqcup_{k=1}^m E(L_k,R_k)$ with $m+1<n$. Fix a later chosen $N$, and for each mapping $\sigma:[n]\to [N]$ let $P(\sigma)=(\sum_{L_1}\sigma,\dots,\sum_{L_m}\sigma,\sum_{[n]}\sigma)$. Then $P$ has domain of size $N^n$ and range of size at most $(nN)^{m+1}$. We choose $N$ guaranteeing $P$ is not injective. Fix $\sigma_1\neq\sigma_2$ with $P(\sigma_1)=P(\sigma_2)$, and set $\tau=\sigma_1-\sigma_2$. We have $\sum_{i<j}\tau(i)\tau(j)=\sum_{k=1}^m \sum_{L_k}\tau\sum_{R_k}\tau=0$, and $\sum\tau(i)=0$. Thus $\sum\tau(i)^2=[\sum\tau(i)]^2-2\sum_{i<j}\tau(i)\tau(j)=0$, in contradiction to $\sigma_1\neq\sigma_2$. \\\\
+
+
+id bh. Fact: Let $f$ be a bounded continuous function on $[0,\infty)$, $\LL[f]$ its Laplace transform, let $X_1,\dots,X_n$ be a sequence of iid variables $\sim\Exp(\lambda)$ and $S_n=X_1+\dots+X_n$. We have \\
+\i $\E[f(S_n)]=\dfrac{(-1)^{n-1}\lambda^n}{(n-1)!}\dfrac{\d^{n-1} \LL[f](\lambda)}{\d \lambda^{n-1}}$.\\
+\ii For all $y>0$ we have $f(y)=\displaystyle\lim_{n\to\infty} \fit{\dfrac{(-1)^{n-1}\lambda^n}{(n-1)!}\dfrac{\d^{n-1} \LL[f](\lambda)}{\d \lambda^{n-1}}}\biggr\rvert_{\lambda=n/y}$, a formula for inverting $\LL[f]$ back to $f$.    \\\\
+
+
+id bn. Fact: Let $S_n$ be a symmetric random walk on $\Z$, $T=\inf\set{n:S_n=1}$. Then $P(T=2m-1)=\displaystyle\binom{\frac{1}{2}}{m}(-1)^{m+1}$. \\\\
+
+
+id bn. Explanation: We know that $T<\infty$ almost surely (though $\E[T]=\infty$). Let $f(\alpha)=\E[\alpha^T]$. Then $f(\alpha)=\frac{1}{2}\alpha+\frac{1}{2}\alpha \E[\alpha^{T'}]$ where $T'$ is the time to get to $1$, starting at $-1$. Now $T'$ is a sum of two independent variables, both distributed as $T$. Thus $\E[\alpha^{T'}]=f(\alpha)^2$. It follows that $f(\alpha)=\dfrac{1-\sqrt{1-\alpha^2}}{\alpha}$. It remains to compare coefficients. \\\\
+
+
+id bo. Fact: Let $Z_n$ be a Markov chain on $(E,P)$. Then the following are equivalent.\\
+\i For any $i,j\in E$ we have $\P\fit{\exists n\ge 1: j=Z_n\mid Z_0=i}=1$. \\
+\ii All $P$-super-harmonic non-negative functions $h$ on $E$ are constant.  \\\\
+
+
+id bo. Explanation: \i$\implies$ \ii Clearly $h(Z_n)$ is a non-negative super-martingale. Starting at $Z_0=i$, let $T$ be the stopping time of reaching $j$, so $T$ is almost-surely finite, and thus $h(j)\E[h(Z_T)]\le h(Z_0)=h(i)$.\\
+\ii$\implies$\i For fixed $j$ the function $h_j(i)=\P[\text{hitting}\spc j\mid Z_0=i]$ is $P$-super-harmonic. Indeed, $\sum_k h_j(k)p_{ik}\le \sum_{k\neq j}h_j(k)p_{ik}+p_{ij}=h_j(i)$. Therefore $h_j\equiv c_j$ is constant and $p_{ij}=p_{ij}c_j$. If $p_{ij}=0$ for all $i$ then the function $\delta_j$ would be $P$-super-harmonic and non-constant, and so $c_j=1$. 
+
 
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER 5 - ABSTRACT ALGEBRA
 \chap{5. Abstract Algebra}
+id bm. Fact: For a subset $S\sub \F_2^d$ let $\Gamma_S(x,y)=\displaystyle\sum_{s\in S}x^{d-W(s)}y^{W(s)}$ where $W(s)=\abs{i\in [d]:s_i=1}$ is the Hamming weight. If $U$ is a subspace of $\F_2^d$ and $W=\set{v\in \F_2^d: u^tv=0 \spc\forall u\in U}$ is the "orthogonal" subspace, then $$\Gamma_W(x,y)=\dfrac{1}{\abs{U}}\Gamma_U(x+y,x-y)$$
+In particular, the multiset of Hamming weights of $U$ is sufficient information for that of $W$.    \\\\
+
+
+id bm. Explanation: Let $f(s)=x^{d-W(s)}y^{W(s)}$ be a function on $\F_2^d$ and $\psi$ be a linear character of $\F_2^d$. We have $\psi=\psi_v:x\mapsto (-1)^{v^tx}$ for some $v\in \F_2^d$. Thus $2^d\hat{f}(\psi)=\sum_{s\in\F_2^d} x^{d-W(s)}y^{W(s)}(-1)^{v^ts}=\prod_{i=1}^d\sum_{s_i=0}^1  x^{1-s_i}y^{s_i}(-1)^{v_is_i}=\prod_{i=1}^d (x+y)^{1-v_i}(x-y)^{v_i}=(x+y)^{d-W(v)}(x-y)^{W(v)}$. It remains to utilize Poisson summation formula. \\\\
+
+
 id ba. Fact: If $A$ is a Noetherian ring then $A[t]$ is a Noetherian ring.  \\\\
 
 
-    id ba. Explanation: Fix an ideal $\II\ideal A[t]$. A best effort attempt to generate $\II$ is as follows: as long as $f_1(t),...,f_{n-1}(t)$ don't generate $\II$, let $f_n(t)$ be the polynomial of minimal degree in $\II$ and not in $\gen{f_1(t),\dots,f_{n-1}(t)}$. Note that $d_n=\deg f_n(t)$ is weakly increasing, and that the leading coefficient of $f_n(t)$ does not belong to the ideal of $A$ generated by the leading coefficients of  $f_1(t),..,f_{n-1}(t)$, for otherwise there are $a_1,\dots,a_{n-1}\in A$ for which $g(t)=f_n(t)-a_1f_1(t)t^{d_n-d_1}\dots-a_{n-1}f_{n-1}(t)t^{d_n-d_{n-1}}$ has degree smaller than $f_n(t)$ and is also member of $\II\setminus \gen{f_1(t),..,f_n(t)}$, which can't be. It follows that the sequence of ideals of $A$ generated by the leading coefficients of $f_1(t),\dots,f_n(t)$ is strictly increasing, and $A$ is not Noetherian.
+id ba. Explanation: Fix an ideal $\II\ideal A[t]$. A best effort attempt to generate $\II$ is as follows: as long as $f_1(t),...,f_{n-1}(t)$ don't generate $\II$, let $f_n(t)$ be the polynomial of minimal degree in $\II$ and not in $\gen{f_1(t),\dots,f_{n-1}(t)}$. Note that $d_n=\deg f_n(t)$ is weakly increasing, and that the leading coefficient of $f_n(t)$ does not belong to the ideal of $A$ generated by the leading coefficients of  $f_1(t),..,f_{n-1}(t)$, for otherwise there are $a_1,\dots,a_{n-1}\in A$ for which $g(t)=f_n(t)-a_1f_1(t)t^{d_n-d_1}\dots-a_{n-1}f_{n-1}(t)t^{d_n-d_{n-1}}$ has degree smaller than $f_n(t)$ and is also member of $\II\setminus \gen{f_1(t),..,f_n(t)}$, which can't be. It follows that the sequence of ideals of $A$ generated by the leading coefficients of $f_1(t),\dots,f_n(t)$ is strictly increasing, and $A$ is not Noetherian. \\\\
 
+
+id be. Fact: In a vector space, if $(u_1,\dots,u_i)$ is linearly independent and $(w_1,\dots,w_s)$ is spanning, then $i\le s$. Moreover, we may replace some $i$ members of the latter with the members of the former to produce a spanning set.  \\\\
+
+
+id be. Explanation: By induction on $i$, the base $i=0$ being trivial. For the step, we have wlog $(u_j)_{j<i}\cup (w_k)_{k\ge i}$ spanning. Writing $u_i$ as a linear combination, a coefficient of one of the $w$'s must be non-zero, wlog say that of $w_i$. Thus $w_i$ is spanned by $(u_j)_{j\le i}\cup (w_k)_{k>i}$. This set is spanning, since it contains the remaining members of the previously spanning set.   \\\\
+
+
+We also give specific explanations for when $\F$ is a finite field and when $\F=\Q$.\\\\
+
+id be. Explanation for finite fields: If $\abs{\F}=q$ is finite, then the span of $u_1,\dots,u_i$ has precisely $q^i$ elements, where as the span of $w_1,\dots,w_s$ has at most $q^s$ elements.   \\\\
+
+
+id be. Explanation for $\F=\Q$: Write $u_t=\sum_j\alpha_{tj}w_j$ for $\alpha_{tj}\in\Q$, $t\in[i], j\in[s]$. Let $M$ be a common multiple of the denominators, $f_t=Mu_t$ and $\beta_{tj}=M\alpha_{tj}\in\Z$. Let $R$ be a positive integer variable, $A_R=\{r_1f_1+\dots+r_if_i:r_t\in\Z,\abs{r_t}\le R\}$ and $B_R=\{m_1w_1+\dots+m_sw_s:m_j\in\Z,\abs{m_j}\le CR\}$ where $C=\max_j\sum_t\abs{\beta_{tj}}$. We have $A_R\sub B_R$, and with the polynomial inequality $(2R+1)^i=\abs{A_R}\le\abs{B_R}\le(2CR+1)^s$ valid for all values of $R$ we deduce $i\le s$.   \\\\
+
+
+id bf. Fact: If $f:\F_2^d\to\pm1$ satisfies $f(x+y)=f(x)f(y)$ in probability $\ge 1-\eps$, then there exists a character $\phi:\F_2^d\to\pm1$ with $f=\phi$ in probability $\ge 1-\eps$. \\\\
+
+
+id bf. Explanation: Write $f=\sum\hat{f}(\psi)\psi$. We have $$4^d(1-2\eps)\le \sum_{x,y}f(x+y)f(x)f(y)=\sum_{x,y,\psi_1,\psi_2,\psi_3}\hat{f}(\psi_1)\hat{f}(\psi_2)\hat{f}(\psi_3)\psi_1(x+y)\psi_2(x)\psi_3(y)=4^d\sum_\psi[\hat{f}(\psi)]^3 $$
+by character orthogonality. Moreover $1=\inner{f,f}=\sum_\psi [\hat{f}(\psi)]^2$. Noting that the $\hat{f}(\psi)$ are real, we have $\max_\psi\hat{f}(\psi)\ge \dfrac{\sum_\psi [\hat{f}(\psi)]^3}{\sum_\psi [\hat{f}(\psi)]^2}\ge 1-2\eps$ and so for $\phi=\arg\max \hat{f}$ we have $f=\phi$ in probability $\ge 1-\eps$.   \\\\
+
+id bl. Fact: Let $G$ be a finite abelian group. For a subgroup $H$ let $H^\perp=\set{\phi\in\widehat{G}:\phi\rvert_H\equiv 1}$. Then\\
+\i  $H^\perp$ is a subgroup naturally isomorphic to $\widehat{G/H}$. \\
+\ii $\widehat{G}/H^\perp$ is naturally isomorphic to $\widehat{H}$. \\
+\iii $H^{\perp\perp}$ is naturally isomorphic to $H$.   \\
+\iv We have $\displaystyle\sum_{\psi\in H^\perp}\psi(g) =\begin{cases}
+			[G:H] & g\in H\\
+            0 & g\not\in H
+		 \end{cases}$ \\
+\v {\it Poisson summation formula}: For $f:G\to\C$ we have $$\sum_{h\in H}f(h) = \abs{H} \sum_{\psi\in H^\perp}\hat{f}(\psi)$$
+\\
+
+
+id bl. Explanation: \\
+\iv This follows from \i and character orthogonality.   \\
+\v We may assume $f$ is a character of $G$. If $f\in H^\perp$ the formula is clear. If $f\nin H^\perp$ then $f\rvert_H$ is a non-trivial character on $H$ so that the lhs vanishes, as does the right.  \\\\
+
+
+\subsection*{Applications}
+Nomenclature. A society has voters and politicians. A {\it voting system} is a mapping, taking in a linear preference of the politicians from each voter, and returning a linear preference of the politicians. The {\it majority} system works if there's an odd number of voters and two politicians, and ranks on top the politician the majority of voters ranked on top. The majority system is pretty fair, and on the other spectrum we have a {\it dictatorship}: a system which always returns the preferences of one specific voter, the dictator.    \\
+
+
+id bp. Fact: Suppose a voting system on three politicians satisfies the following:  \\
+\i If all the voters rank one politician higher than another, so will the system.  \\
+\ii For any pair of politicians, the preference between the two returned by the system depends only on the preferences of the voters between the two.  \\
+\iii If the voters choose their preferences (uniformly) at random, then any one of politician has even odds at ranking higher than any other.  \\
+Then the system is a dictatorship.  \\\\
+
+
+id bp. Explanation: We first need a model. If for example there's four voters, the three politicians are named $a,b,c$ and the preferences are
+$a>b>c, \spc c>a>b, \spc b>a>c, \spc b>c>a$
+then the preferences of the voters between any pair of pair of politicians are as follows:
+$$\begin{bmatrix}
+    a:b && a>b && a>b && b>a && b>a \\
+b:c && b>c && c>b && b>c && b>c \\
+c:a && a>c && c>a && a>c && c>a 
+\end{bmatrix}$$
+For each row, the voting system returns a preference of the two politicians. In other words, the system is composed of three functions taking in $n$ signs (where $n$ is the number of voters) and returning one sign. In our example, the preferences are described as the sign vectors
+$$\begin{bmatrix}
+x: & +1 & +1 & -1 & -1 \\
+y: & +1 & -1 & +1 & +1 \\
+z: & -1 & +1 & -1 & +1 
+\end{bmatrix}  $$
+and assumption \ii implies that the voting system returns a triple $(f(x),g(y),h(z))$ describing the final preferences $(a:b, b:c, c:a)$. It is important to see that each of $f,g,h$ is defined on the full space $\set{\pm1}^n$ but out of the $8^n$ triples $x,y,z$, only $6^n$ describe potential preferences of voters, namely for each $i\in[n]$ the three signs $x_i,y_i,z_i$ cannot all be the same. We draw at random preferences for the voters (out of a space of $6^n$ possibilities), described as sign vectors $x,y,z$. The three signs $f(x),g(y),h(z)$ are not all the same, meaning 
+$$f(x)g(y)+g(y)h(z)+h(z)f(x)=-1$$
+is a constant random variable. On the other hand
+$$\E[f(x)g(y)]=\sum_{\psi_1,\psi_2\in\widehat{\set{\pm1}^n}}\hat{f}(\psi_1)\hat{g}(\psi_2)\E[\psi_1(x)\psi_2(y)]$$
+Now a character $\psi$ corresponds to a set $S$ via $\psi(x)=\prod_{s\in S}x_s$. If $\psi_1\neq\psi_2$ then from $\E[\psi_1(x)\psi_2(y)]$ we may factor out a zero in the form of $\E x_j$ or $\E y_j$. Since $\E[x_jy_j]=-\frac{1}{3}$ we have  $\E[f(x)g(y)]=\sum_{S\sub[n]} \hat{f}(S)\hat{g}(S) \fit{-\frac{1}{3}}^{\abs{S}}$. In total we have
+$$1 = \sum_{S\sub[n]}-\fit{-\frac{1}{3}}^{\abs{S}}\fit{\hat{f}\hat{g}+\hat{g}\hat{h}+\hat{h}\hat{f}}(S)$$
+Now $\hat{f}(\empty)=\hat{g}(\empty)=\hat{h}(\empty)=0$ by assumption \iii Moreover $\abs{r_1r_2+r_2r_3+r_3r_1}\le r_1^2+r_2^2+r_3^2$ for real $r_i$ so 
+$$1\le \sum_{\empty\neq S\sub[n]}\dfrac{\hat{f}(S)^2+\hat{g}(S)^2+\hat{h}(S)^2}{3^S}\le \dfrac{\inner{f,f}+\inner{g,g}+\inner{h,h}}{3}=1$$
+implying the only non-trivial coefficients are singletons, so $f,g,h$ are linear functions. Since they only take two values, they're of the form $f(x)=\pm x_j$, $g(y)=\pm y_k$, $h(z)=\pm z_\ell$. Assumption \i yields positive signs, and it's easy to see $j=k=\ell$ is a dictator.
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER 6 - ANALYSIS
@@ -245,12 +375,27 @@ id bc. Fact: Let $b,m,n$ be elements of a $C\str$ algebra with $m,n$ normal and 
 
 id bc. Explanation: We have $bn^k=m^kb$, and so $bf(n)=f(m)b$ for analytic functions $f$. In particular $b=\exp(\xi m)b\exp(-\xi n)$ for all $\xi\in\C$. Normality yields
 $$\exp(i\zeta m\str)b\exp(-i\zeta n\str) = \exp(i(\zeta m\str + \zeta\str m))b\exp(-i(\zeta^* n-\zeta n\str))$$
-The rhs is an entire function of $\zeta$, and the lhs is bounded by $\norm{b}$, and so the expression is a constant, namely $b$. Finally, the lhs coefficient of $\zeta$ is $im\str b-ibn\str$.
+The rhs is an entire function of $\zeta$, and the lhs is bounded by $\norm{b}$, and so the expression is a constant, namely $b$. Finally, the lhs coefficient of $\zeta$ is $im\str b-ibn\str$. \\\\
+
+
+id bj. Fact: For a box $I\in\R^d$, not necessarily parallel to the standard axes, write $\rho(I)$ for the sum of the $d$ edge lengths of $I$. If $I_1\sub I_2$ then $\rho(I_1)\le \rho(I_2)$.   \\\\
+
+
+id bj. Explanation: This is easy for $d=1,2$. For $d\ge 3$, we consider the volume of the set of points of distance $\le r$ from $I$, denoted $f(r;I)$, where we take $I$ as a solid. $f(r;I)=c_0 r^d + c_1\rho(I) r^{d-1}+\dots+\vol(I)$ is a polynomial in $I$ of degree $d$, and clearly $f(r;I_1)\le f(r;I_2)$ for all $r$.  \\\\
+
+
+id bk. Fact: Let $I,I_1,I_2,\dots$ be intervals with $I\sub\bigcup_{k}I_k$. Then $\len(I)\le\sum_k \len(I_k)$. \\\\
+
+
+id bk. Explanation: We first assume $I$ is compact and all the $I_k$ are open. Thus $I\sub I_1\cup\dots\cup I_N$ for some $N$, and we'll show $\len(I)\le\len(I_1)+\dots+\len(I_N)$ by induction on $N$. The base case is trivial. For the step, assume wlog $m=\min I\in I_1=(\alpha,\beta)$. Then $[\beta,\max I]\sub I_2\cup\dots\cup I_N\implies \len(I)< \len(I_1)+\len\fit{[\beta,\max I]}\le \len(I_1)+\dots+\len(I_N)$. A second step is to remove the openness assumption on the $I_k$, but keep the compactness assumption on $I$. Let $J_k$ be the interior of $I_k$, and for some fixed $\eps$ let $L_k,R_k$ be open intervals of length $\eps/2^k$ around the left and right endpoints of $I_k$ (if one of the $I_k$ is infinite there's nothing to prove). We get that $\len(I)\le \sum \len(I_k)+2\eps$, and the desired inequality follows in the limit. The final step of removing the compactness assumption on $I$ is by an approximation of $I$ using compact intervals. 
+
+
+
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER -1 - SOLUTIONS
-\chap{-1. Solutions}
+\chap{-1. Solutions} \label{sol}
 id aa. The probability is $1/101$, independent of $k=0,\dots,100$. To show this, note that we may generate a biased coin toss by generating a uniform random number $t$ from $[0,1]$ and then show heads iff $t<p$. Therefore the process can be described by generating $1+100$ independent uniform random numbers $p=t_0,t_1,\dots,t_{100}$ from $[0,1]$ and the number of heads is the index of $t_0$ after sorting, which is distributed uniformly in $0,\dots,100$.  \\\\
 
 
@@ -274,15 +419,38 @@ id aj. Suppose $\sum a_n^2$ diverges, and form a partition $0=N_0<N_1<\dots$ for
 
 id aw. The number $100$ can only be the top card once, after that it will stay forever at the bottom. Between any two times the number $99$ is on top, $100$ has to be on top. Between any two times the number $98$ is on top, either $100$ or $99$ has to be on top, ..., between any two times the number $2$ is on top a number bigger than $2$ has to be on top. Therefore each number except for $1$ can only be on top finitely many times.  \\
 
-id aw. Solution 2. If $100$ ever becomes the top card, it'll later be stuck at the bottom. If not, the bottom card will never change, and the game will be indifferent to switching the numbers of the bottom card with $100$. So in either case we have an induction step.
+id aw. Solution 2. If $100$ ever becomes the top card, it'll later be stuck at the bottom. If not, the bottom card will never change, and the game will be indifferent to switching the numbers of the bottom card with $100$. So in either case we have an induction step. \\\\
+
+
+id bh. Explanation: \\
+\i we have $\E[f(S_n)]=\int_{x_i\ge0}f(\sum x_i)\lambda^n e^{-\lambda\sum x_i}\d x_1...\d x_n$. Change variables to $y_i=x_i$ for $i<n$ and $t=\sum x_i$. The Jacobian is $1$, the domain $0\le y_i, \sum y_i\le t$, and we get $\lambda^n\int_{t=0}^{\infty}\d t f(t)e^{-\lambda t} \int_{y_i\ge 0, \sum y_i\le t}\d y_1...\d y_{n-1} $. We recognise the inner volume as $\frac{t^{n-1}}{(n-1)!}$. Finally, $\frac{\d^{n-1} \LL[f](\lambda)}{\d \lambda^{n-1}}=\int_0^{\infty} (-x)^{n-1} e^{-\lambda x}f(x)\d x$.  \\
+\ii We have $\E[X]=\lambda\inv$, $\var X=\lambda^{-2}$, so for $\lambda=n/y$ we have $\E[S_n]=y$, $\var(S_n)=y^2/n$. Chebyshev gives $\P[\abs{S_n-y}>yn^{-1/4}]\le n^{-1/2}$. If $\eps_n=\displaystyle\max\abs{f(\alpha)-f(\beta)}$ over $\set{\abs{\alpha-\beta}\le yn^{-1/4}, 0\le\alpha,\beta\le 2y}$, then $\eps_n$ tends to $0$ by uniform continuity, and $\abs{f(y)-\E[f(S_n)]}\le\E[\abs{f(y)-f(S_n)}]\le 2\norm{f}_\infty n^{-1/2} + \eps_n$ tends to $0$, so $f(y)=\lim\E[f(S_n)]$.   \\\\
+
+
+id br. Let $Z_k$ be our capital after the $k$-th bet. We have $\E[Z_{k+1}|Z_k]\le 2pZ_k$, with equality iff we bet all our money on the $k+1$-st round. Thus the strategy maximizing $\E[Z_n]$ is to always bet everything, and has a value of $\$(2p)^n$. This strategy is extremely risky, since only in probability $p^n$ we don't lose our initial investment. Replacing the utility $Z$ by $\log(Z)$ has two effects: it greatly punishes losing all your capital, and returns are diminishing. Now if we wager a proportion $\alpha$ of our capital $Z_k$ in the $k+1$-st round we'll have $\E[\log(Z_{k+1})| Z_k,\alpha]=p\log(Z_k(1+\alpha)) + q\log(Z_k(1-\alpha))$ where $q=1-p$. This is maximized for $\alpha=2p-1$. Thus the optimal strategy always wager a proportion of $2p-1$ of our capital (which could be guessed, since for $p=1/2$ we'd not wager anything and for $p=1$ we'd be all in). This strategy has $\E[\log(Z_n)]=n(p\log p +q\log q+\log 2)$.   \\
+
+id br. engineer's solution: Suppose we always wager a fixed proportion $\alpha$ of our capital. We'll have approximately $pn$ wins and $qn$ losses, meaning $Z_n\approx (1+\alpha)^{pn}(1-\alpha)^{qn}$. Thus $\log(Z_n)\approx n(p\log(1+\alpha)+q\log(1-\alpha))$ is to be maximized, as before.
+
+
 
 
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER -2 - NOTES
 \chap{-2. Notes}
+The following is a minimal attempt at giving due credit.    \\\\
 id av. The given explanation is attributed to D.J. Newman.    \\\\
 
 
-id ax. The given explanation is attributed to M. Nair.
+id ax. The given explanation is attributed to M. Nair.      \\\\
+
+
+id be. The given explanation for $\F=\Q$ is attributed to S. Vishwanathan.  \\\\
+
+
+id bg. The given explanation is attributed to S. Vishwanathan.  \\\\
+
+
+id bm. The Fact is attributed to F.J. MacWilliams.  \\\\
+
 \end{document}
