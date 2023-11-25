@@ -1,6 +1,13 @@
 %\documentclass[12pt]{book}
 \documentclass[oneside]{book}
 
+\usepackage{esint}  %%%% problematic??
+\let\iiint=\relax
+\let\idotsint=\relax
+\let\iiiint=\relax
+\let\iint=\relax
+\newcommand{\cint}{\varointctrclockwise}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -23,7 +30,7 @@
 \newcommand{\sub}{\subseteq}
 \newcommand{\tabb}{\phantom{aaaa}}
 \newcommand{\inner}[1]{\langle #1\rangle}
-
+\newcommand{\vphi}{\varphi}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\Z}{\mathbf{Z}}
 \newcommand{\F}{\mathbf{F}}
@@ -35,7 +42,8 @@
 \usepackage{mathrsfs}\newcommand{\CC}{\mathscr{C}}\newcommand{\FF}{\mathscr{F}}\newcommand{\LL}{\mathcal{L}}
 \newcommand{\T}{\mathbf{T}}
 \newcommand{\Q}{\mathbf{Q}}
-\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\GL}{\mathrm{GL}}\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\PSL}{\mathrm{PSL}}
 \newcommand{\II}{\mathscr{I}}
 \newcommand{\ideal}{\trianglelefteq}
 \newcommand{\set}[1]{\{ #1\}}
@@ -58,7 +66,27 @@
 \newcommand{\iii}{{\it iii}. }
 \newcommand{\iv}{{\it iv}. }
 \renewcommand{\v}{{\it v}. }
+\newcommand{\vi}{{\it vi}. }
+\newcommand{\vii}{{\it vii}. }
+\newcommand{\iix}{{\it iix}. }
+\newcommand{\ix}{{\it ix}. }
+\newcommand{\x}{{\it x}. }
+
 \newcommand{\nin}{\not\in}
+\newcommand{\iid}{i.i.d }
+\renewcommand{\H}{\mathbf{H}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\RR}{\mathscr{R}}
+
+
+\def\Xint#1{\mathchoice{\XXint\displaystyle\textstyle{#1}}%
+    {\XXint\textstyle\scriptstyle{#1}}%
+    {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+    {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+      \!\int}
+\def\dashint{\Xint-}
+
+
 \newcommand\chap[1]{%
   \chapter*{#1}%
   \addcontentsline{toc}{chapter}{#1}}
@@ -145,7 +173,7 @@ Part ii. Now the frog moved to the real line, and still hops every day by a fixe
 
 id au. A standard $2$-dimensional Gaussian is given in polar coordinates by $\sqrt{2\log(1/u)}(\cos2\pi\theta,\sin2\pi\theta)$ where $u,\theta$ are independent and uniform on $[0,1]$. \\\\
 
-id aw. There's a deck with $100$ numbered $1..100$ in some order. In each step we peek at the top card, say numbered $k$, take the first $k$ cards from the deck, flip their order, and return them at the top of the deck. In particular, after this move the $k$-th card now shows $k$. Show that eventually the top card becomes $1$.  \\\\
+id aw. There's a deck with $100$ numbered $1..100$ in some order. In each step we peek at the top card, say numbered $k$, take the first $k$ cards from the deck, and shuffle them so that $k$ becomes the bottom card, and then return them on top of the rest of the deck. In particular, after this move the $k$-th card now shows $k$. Show that eventually the top card becomes $1$.  \\\\
 
 
 id ay. Let $f:[0,1]\to\R$ be a continuous function satisfying $\int_0^1 f(x)x^k=1$ for $k=0,\dots,n-1$. What is the best lower bound on $\int_0^1 f^2$? \\\\
@@ -157,7 +185,17 @@ id bd. From each vertex of a triangle, extend the two edges by the length of the
 id bq. If $a_n\to a$ then $\fit{1+\frac{a_n}{n}}^n\to e^a$. \\\\
 
 
-id br. A betting game with odds $p>1/2$ in your favour goes as follows. In each round, you may wager an amount $x$ of your capital. If the odds were right you get back $2x$, and if not you lose the initial $x$. You start with $\$1$ and the game goes for $n$ rounds. What strategy should be played to maximize the expected value of your capital at the end of the game? What about maximizing the expected value of the $\log$ of your capital.
+id br. A betting game with odds $p>1/2$ in your favour goes as follows. In each round, you may wager an amount $x$ of your capital. If the odds were right you get back $2x$, and if not you lose the initial $x$. You start with $\$1$ and the game goes for $n$ rounds. What strategy should be played to maximize the expected value of your capital at the end of the game? What about maximizing the expected value of the $\log$ of your capital. \\\\
+
+
+id bs. Compute the mean and variance of $e^X$ where  $X\sim N(\mu,\sigma^2)$ is normal. \\\\
+
+
+id bu. Given a sequence of distribution functions $F_n$ there exists a right-continuous weakly-increasing function $F:\R\to[0,1]$ and a sub-sequence $F_{s(n)}$ for which $\displaystyle\lim_{n\to\infty}F_{s(n)}(x)=F(x)$ for all points of continuity $x$ of $F$. Moreover, $F$ is a distribution function if $\forall\eps\spc\exists a<b\spc\forall n\spc F_n(b)-F_n(a)\ge 1-\eps$.\\\\
+
+
+id cf. $$\dfrac{1^5}{1+e^\pi}+\dfrac{3^5}{1+e^{3\pi}}+\dfrac{5^5}{1+e^{5\pi}}+\dfrac{7^5}{1+e^{7\pi}}\dots = \dfrac{31}{504}$$\\
+
 
 
 
@@ -175,7 +213,138 @@ Nomenclature. The {\it Laplace transform} of a bounded continuous function $f:[0
 defined for $\lambda > 0$. \\\\
 
 
-id bi. Fact: We have $$\LL[f'](\lambda)=\lambda\LL[f] - f(0)$$ 
+id bi. Fact: We have $$\LL[f'](\lambda)=\lambda\LL[f] - f(0)$$ \\
+
+
+id ca. Fact: The De-Rham cohomology of $\R^2\setminus\set{(0,0)}$ is $H^0\simeq \R$, $H^1\simeq \R$, $H^2=0$. \\\\
+
+
+id ca. Explanation: The punctured plane is connected, so $H^0=\set{\text{constant functions}}$. A closed $1$-form $\omega = u(x,y)\d x+v(x,y)\d y$ has $u_y=v_x$, and so $ \cint_{\partial R}\omega = 0$ for any rectangle $R$ not including the origin. It is easy to see that there is a common value $\nu(\omega)$ of $\cint_{\partial R}\omega$ for all rectangles $R$ around the origin. We'll show that $\omega$ is exact iff $\nu(\omega)= 0$. Indeed, if $\omega = \d f$ then $\oint \omega=0$ for any loop. On the other hand, if $\nu(\omega)=0$ then there is a well defined smooth function $f(x,y)=\int_{\gamma} \omega$, letting $\gamma$ be any curve piece-wise parallel to the axes, going from $(1,0)$ to $(x,y)$ not through the origin, and we have $\d f=\omega$. A closed $1$-form which is not exact is $\alpha="\d \theta"=\dfrac{x\d y-y\d x}{x^2+y^2}$. Indeed we have $\d \alpha = 0$ and $\cint_{x^2+y^2=1}\alpha = 2\pi$. It follows that any closed $1$-form is uniquely a constant times $\alpha$ plus an exact form, or $H^1=\R\alpha$. Finally we must show any $2$-form $\eta=f(x,y)\d x\wedge \d y$ is exact. An engineer's solution would be to write
+$\eta = \tilde{f}(r,\theta)r\d r\wedge \d\theta = \d\fit{\fit{\int_1^r \tilde{f}(t,\theta)t\d t}\d \theta}$. One can bring this back rigorously to $x,y$ coordinates and verify it works.  \\\\
+
+
+id cp. Fact: For all $z\in\C$ we have $$\pi\cot(\pi z)=\dfrac{1}{z}+\sum_{m\ge 1}\dfrac{1}{z+m}+\dfrac{1}{z-m}$$\\
+
+
+id cp. Explanation: Apply a logarithmic derivative to the sine product. \\\\
+
+
+id cp. Explanation 2: It is easy to see the series converges to a meromorphic function of period $1$ with simple poles at the integers with residues $1$. Hence the difference between the two sides is an entire function. But one can see that the difference is bounded, hence constant. Developing to first order at $z=0$ we find the two sides are equal.\\\\
+
+
+\subsection*{Elliptic functions}
+
+
+Nomenclature. The Weierstrass function of a $2$ dimensional lattice $L$ in $\C$ is $\wp(z)=z^{-2}+\displaystyle\sum_{\omega\in L\setminus 0}\fit{(z-\omega)^{-2}-\omega^{-2}}$ \\\\
+
+
+id cb. Fact: \\
+\i $\wp$ is a well defined $L$-periodic even meromorphic function of order $2$ with double poles on the points of $L$. We have $\wp'(\eta)=0$ for $\eta\in \frac{1}{2}L \setminus L$.\\
+\ii The expansion of $\wp$ at the origin is $\wp(z)=z^{-2}+\sum_{n\ge1}(2n+1)G_{2n+2}z^{2n}$, where $G_{m}=\sum_{\omega\in L\setminus0}\omega^{-m}$. \\
+\iii We have $$\wp'(z)^2=4\wp(z)^3-g_2\wp(z)-g_3=4(\wp(z)-e_1)(\wp(z)-e_2)(\wp(z)-e_3)$$ where $g_2=60G_4, g_3=140G_6,  e_1=\wp(\frac{\omega_1}{2}), e_2=\wp(\frac{\omega_2}{2}), e_3=\wp(\frac{\omega_1+\omega_2}{2})$ for $L=\Z \omega_1\oplus \Z\omega_2$ \\
+\iv We have $$\begin{vmatrix}
+1 & \wp(u) & \wp'(u) \\ 
+1 & \wp(z) & \wp'(z) \\ 
+1 & \wp(z+u) & -\wp'(z+u)
+\end{vmatrix}=0$$ \\
+\v $$p(u)+p(z)+p(u+z)=\dfrac{1}{4}\fit{\dfrac{\wp'(u)-\wp'(z)}{\wp(u)-\wp(z)}}^2$$\\
+
+
+id cb. Explanation: It's simple to verify $\wp$ is a well defined even meromorphic function with double poles on the points of $L$. Clearly $\wp'(z)=-2\displaystyle\sum_{\omega\in L}(z-\omega)^{-3}$ is $L$-periodic. Hence for $\omega\in L$, $\wp(z+\omega)-\wp(z)$ is a constant. But $\wp$ is even, so this constant is zero and $\wp$ is $L$-periodic of order $2$. For $\eta$ a proper half lattice point, we see that $\wp'(\eta)=0$ either from the series for $\wp'$, or by deriving the identity $\wp(z)-\wp(2\eta-z)=0$ at $\eta$. The expansion at $0$ is clear, and the left=center identity follows because the difference is $L$-periodic without poles with no zero-th order terms. Since $\wp$ has order $2$, the values $e_1,e_2,e_3$ are distinct (each is assumed with multiplicity $2$). Thus $e_1,e_2,e_3$ are precisely the three roots of the polynomial $4t^2-60G_4t-140G_6$. Now, given (general) $z_1,z_2$ we find $a,b$ which solve $b=a\wp(z_i)+\wp'(z_i)$. Then $f(z)=\wp'(z)-a\wp(z)$ is an elliptic function of $L$ of order $3$ with a triple pole at $0$ and roots at $z_1,z_2$. Since the sum of the three roots minus poles of $f$ (inside a parallelogram) is congruent to $0$ mod $L$, $-z_1-z_2$ is a root of $f$, yielding the determinant formula. Finally, the line $y=ax+b$ and cubic $y^2=4x^3-g_2x-g_3$ intersect at $(\wp(z_i),\wp'(z_i))$ and $(\wp(-z_1-z_2),\wp'(-z_1-z_2))$. It follows that $4x^3-a^2x^2-(g_2+2ab)x-(g_2+b^2)$ has roots at $x=\wp(z_i),\wp(-z_1-z_2)$ and so the sum of the roots is $a^2/4$, yielding \v\\\\
+
+id cc. Fact: For $\tau\in\H, q=e^{2\pi i\tau}\in\D^\times$ we have
+$$\sum_{m\in\Z}(m+\tau)^{-4}=\dfrac{8\pi^4}{3}\sum_{\ell=1}^\infty \ell^3 q^{\ell}$$
+$$\sum_{m\in\Z}(m+\tau)^{-6}=-\dfrac{8\pi^6}{15}\sum_{\ell=1}^\infty \ell^5 q^{\ell}$$
+$$g_2(\tau)=\dfrac{4\pi^4}{3}\fit{1+240\sum_{\ell=1}^\infty \sigma_3(\ell) q^\ell}$$
+$$g_3(\tau)=\dfrac{8\pi^6}{27}\fit{1-504\sum_{\ell=1}^\infty \sigma_5(\ell) q^\ell}$$\\
+
+
+id cc. Explanation: Recall [??]
+$$\dfrac{1}{\tau}+\sum_{m\neq 0}\fit{\dfrac{1}{\tau+m}-\dfrac{1}{m}}=\pi\cot(\pi \tau)=i\pi\dfrac{q+1}{q-1}=-i\pi\fit{1+2\sum_{\ell=1}^\infty q^\ell}$$
+repeated differentiation yields the first two identities. Once those are in place, we have $G_{2j}(\tau)=\sum_{n,m}(m+n\tau)^{-2j}=2\zeta(2j)+2\sum_{n,\ell=1}^{\infty}c\ell^{2j-1}q^{n\ell}=2\zeta(2j)+2c\sum_{k=1}^{\infty} \sigma_{2j-1}(k)q^k$\\\\
+
+
+Nomenclature. $\Delta=\Delta(4t^2-g_2t-g_3)=g_2^3-27g_3^2$ and $J=\dfrac{g_2^3}{g_2^3-27g_3^2}$. These are functions of the lattice $L$, or functions of two generators $\omega_1,\omega_2$\ of $L$, or functions of one $\tau\in\H$ with $L=\Z+\tau\Z$.\\\\
+
+
+id ce. Fact: For $\tau\in\H, q=e^{2\pi i\tau}\in\D^\times$ we have $$\Delta(\tau)=(2\pi)^{12}\sum_{n=1}^\infty \tau(n)q^n$$
+$$12^3J(\tau)=q\inv + 744 + \sum_{n=1}^\infty c(n)q^n$$
+where $\tau(n),c(n)\in\Z$.\\\\
+
+
+id ce. Explanation: Using [cc] we have $$(2\pi)^{-12}\Delta=(2\pi)^{-12}\fit{g_2^3-27g_3^2}=\dfrac{1}{27\cdot 64}\fit{(1+240A)^3 - (1-504B)^2} = \dfrac{5A+7B}{12}+ C $$ 
+So we need to show $12\mid 5\sigma_3(n)+7\sigma_5(n)$ or simply $12\mid 5k^3+7k^5$. Now we notice $\tau(1)=1, \tau(2)=-24$ and so
+$$12^3J = 12^3 \dfrac{g_2^3}{\Delta} = \dfrac{12^3 \cdot 64\pi^{12}(1+240A)^3}{27(2\pi)^{12}q(1-24q-Eq^2)}=\dfrac{(1+240A)^3}{q(1-24q-Eq^2)}=q\inv(1+3\cdot 240q+\dots)(1+24q+\dots)$$\\
+
+
+Nomenclature. A {\it modular function} is a meromorphic function on $\H\cup{i\infty}$ invariant under $\PSL_2(\Z)$. Namely, if $g$ is a meromorphic function on $\D$, and $f(\tau)=g(e^{2\pi i\tau})$ satisfies $f(\tau)=f(-1/\tau)$ then $f$ is a {\it modular function}.\\\\
+
+
+Example. $J$ is a modular function.\\\\
+
+
+Nomenclature. $\RR=\set{\tau\in\H: \abs{\tau}>1, -0.5\le\Re(\tau)< 0.5}\cup \exp(i[\pi/2,2\pi/3])$ is the {\it fundamental region}.\\\\
+
+
+id cg. Fact: Each $\tau\in \H$ has exactly one $\tau'\in \RR$ for which $\tau\simeq \tau'$ under $\PSL_2(\Z)$. \\
+Moreover, if $A\tau=\tau$ and $A\neq\id$ then $\tau = i,e^{2\pi i/3}$. \\
+The solutions in case $\tau=i$ are $Az=z,\dfrac{-1}{z}$ and for $\tau=e^{2\pi i/3}$ are $Az=z, \dfrac{-1}{z+1}, \dfrac{-z-1}{z}$. \\\\
+
+
+id cg. Explanation. Let $\tau'$ be an element of $\PSL_2(\Z)\tau$ of maximal imaginary part. It exists because $\Im A\tau= \dfrac{\Im \tau}{\abs{c\tau+d}^2}$ and $\set{c\tau+d: \gcd(c,d)=1}$ is discrete and has a shortest element. Under $\tau\mapsto \tau\pm1$ we may assume $-0.5\le \Re\tau'< 0.5$. It must be the case that $\abs{\tau'}\ge1$ for otherwise $-1/\tau'$ would have a larger imaginary part. If $\abs{\tau'}>1$ then $\tau'\in\RR$, and if $\abs{\tau'}=1$ then either $\tau'$ or $-1/\tau'$ is in $\RR$. Now we need to see that no two elements of $\RR$ are equivalent. Let $\tau,A\tau\in\RR$. wlog let $\Im A\tau\ge \Im \tau$, so that $1\ge \abs{c\tau+d}\ge \abs{c}\Im\tau\ge \abs{c}\sqrt{3}/2$ and $c=0,\pm1$. If $c=0$ then $Az=z+b$ and clearly if $\tau,A\tau\in\RR$ then $b=0$, $A=\id$ and $\tau=A\tau$. If $c=\pm1$ we may take $c=1$ and so $1\ge \abs{\tau+d}$. Therefore $\tau$ is at most at distance one from an integer, and this integer must be $d=0,1$. If $d=0$ then $\abs{\tau}=1$ and $Az=a-\dfrac{1}{z}$. It is clear that either $a=0, \tau=A\tau=i$ or $a=-1, \tau=A\tau=e^{2\pi i/3}$. Finally, if $d=1$ then $\tau=e^{2\pi i/3}$ and $\Im A\tau=\sqrt{3}/2$ and so $\tau=A\tau=e^{2\pi i/3}$ . \\\\
+
+
+id ch. Fact: Let $f$ be a non-constant modular function. Then $f$ has an {\it order} $n\ge 1$ such that each value $c\in\C_\infty$ is obtained by $f$ in $\RR\cup\set{i\infty}$ with $\RR$-multiplicity $n$. Here the $\RR$-multiplicities at $i, e^{2\pi i/3}$ are to be divided by $2,3$. In particular, they are divisible by $2,3$.\\\\
+
+
+id ch. Explanation: It suffices to show $0,\infty$ are obtained with the same multiplicity. There's a finite number of zeros and poles in $\RR$ because there isn't an essential singularity at $\tau=i\infty, q=0$. Let us assume there are no zeros or poles on $\partial\RR$. To get the number of zeros minus the number of poles, we take a sufficiently large $M$ and integrate $\dfrac{f'(\tau)\d \tau}{2\pi if(\tau)}$ over $\partial(\RR\cap \Im\le M)$. The value over the vertical parts cancel, and so do the two symmetric parts of the unit circle. [Indeed $f'(w)/f(w)\d w = f'(z)/f(z)\d z$ for $w=z+1$ or $w=-1/z$] and we're left with only the (signed) order of the zero/pole at $\tau=i\infty$. In case there's zeros or poles on the path of integration, we change it. Only if the zero/pole is at $\tau=i,e^{2\pi i/3}$ the path is a half circle around $i$ and two $60$ degree sectors around $e^{2\pi i/3}, e^{2\pi i/3}+1$.\\\\
+
+
+
+id ci. Fact: The order of $J$ is $1$. We have $j(i\infty)=\infty$, $j(i)=1$, $j(e^{2\pi i/3})=0$ with (regular) multiplicities $1,2,3$.\\\\
+
+
+id cj. Fact: We have $\overline{J(\tau)}={J(-\bar{\tau})}$. Also, $J$ maps $-\frac{1}{2}+i[\frac{\sqrt{3}}{2},\infty)$, $\exp(i[2\pi/3,\pi/2])$, $i[1,\infty)$ to $(-\infty,0]$, $[0,1]$, $[1,\infty)$.\\\\
+
+
+id ck. Fact: $J$ acts as a covering map of degree $1$ from $\H\setminus \PSL_2(\Z)\set{i,e^{2\pi i/3}}$ to $\C\setminus\set{0,1}$.\\\\
+
+
+id cl. Fact: An entire function $f:\C\to\C$ omitting two values must be constant.\\\\
+
+
+id cl. Explanation: If $f$ omits $a,b$ then $g=\dfrac{f-a}{b-a}$ omits $0,1$. Since $\C$ is simply connected, $g$ may be lifted to a holomorphic $h:\C\to\H$ with $g=J\circ h$. But then $h$ must be constant, as must $g$ and $f$.\\\\
+
+
+id cm. Fact: For $s>0$ we have $$\sum_{n\in\Z}e^{-\pi s n^2}=\dfrac{1}{\sqrt{s}}\sum_{n\in\Z}e^{-\pi n^2/s}$$\\
+
+
+id cm. Explanation: We apply Poisson summation formula to $e^{-\pi sx^2}$. \\\\
+
+
+id cn. Fact: More generally, if $a,b,\tau\in\C$ and $\Im\tau>0$ then 
+$$\sum_{n\in\Z}e^{i\pi \tau (n+a)^2}e^{-2\pi i b(n+a)}=\dfrac{1}{\sqrt{-i\tau}}\sum_{n\in\Z}e^{-i\pi (n+b)^2/\tau}e^{2\pi i na}$$\\
+
+
+id cn. Explanation: We apply Poisson summation to $e^{-\pi s(x+a)^2}e^{-2\pi ib(x+a)}$ (and analytically continue to the complex domain).\\\\
+
+
+Nomenclature. $\eta(\tau)=e^{2\pi i\tau/24}\displaystyle\prod_{k=1}^\infty (1-e^{2\pi ik\tau})$.\\\\
+
+
+id co. Fact: $\eta$ is holomorphic and non-zero in $\H$. It satisfies \\
+\i $\eta(\tau)=\sum_{n\in\Z}(-1)^n e^{3\pi i \tau(n+\frac{1}{6})^2}$\\
+\ii $\eta(-1/\tau)=(-i\tau)^{1/2}\eta(\tau)$\\
+\iii $\Delta(\tau)=(2\pi)^{12}\eta(\tau)^{24}$\\\\
+
+
+id co. Explanation: \i follows from the pentagonal identity. To get \ii, we apply [cn] with $\dfrac{1}{6},-\dfrac{1}{2},3\tau$ we get
+$$\sum_{n\in\Z}e^{\pi i 3\tau (n+\frac{1}{6})^2}e^{\pi i (n+\frac{1}{6})}=\dfrac{1}{\sqrt{-3i\tau}}\sum_{n\in\Z}e^{-\frac{\pi i}{3\tau} (n-\frac{1}{2})^2}e^{\frac{\pi i n}{3}}$$
+The lhs is $e^{\pi i/6}\eta(\tau)$. We split the sum in the rhs to $n=3k,3k+1,3k+2$. The sum for $n=3k+2$ is a constant times $\sum_k (-1)^k e^{-\frac{\pi i}{3\tau}(3k+3/2)^2}$, where the $k$ summand is minus the $-k-1$ summand, so this sum is zero. Switching $k$ to $-k$ in the first sum, we see that it is $\eta(-1/\tau)$, and the second sum is $e^{\frac{\pi i}{3}}\eta(-1/\tau)$. For \iii we see that $f(\tau)=\dfrac{\Delta(\tau)}{(2\pi)^{12}\eta(\tau)^{24}}$ is analytic in $\H\cup{i\infty}$, invariant under $\PSL_2(\Z)$, has no zeros or poles and equals $1$ at $i\infty$. Such a modular function must be constant $1$.
+
+
+
+
 
 
 \newpage
@@ -230,8 +399,28 @@ id bo. Fact: Let $Z_n$ be a Markov chain on $(E,P)$. Then the following are equi
 
 
 id bo. Explanation: \i$\implies$ \ii Clearly $h(Z_n)$ is a non-negative super-martingale. Starting at $Z_0=i$, let $T$ be the stopping time of reaching $j$, so $T$ is almost-surely finite, and thus $h(j)\E[h(Z_T)]\le h(Z_0)=h(i)$.\\
-\ii$\implies$\i For fixed $j$ the function $h_j(i)=\P[\text{hitting}\spc j\mid Z_0=i]$ is $P$-super-harmonic. Indeed, $\sum_k h_j(k)p_{ik}\le \sum_{k\neq j}h_j(k)p_{ik}+p_{ij}=h_j(i)$. Therefore $h_j\equiv c_j$ is constant and $p_{ij}=p_{ij}c_j$. If $p_{ij}=0$ for all $i$ then the function $\delta_j$ would be $P$-super-harmonic and non-constant, and so $c_j=1$. 
+\ii$\implies$\i For fixed $j$ the function $h_j(i)=\P[\text{hitting}\spc j\mid Z_0=i]$ is $P$-super-harmonic. Indeed, $\sum_k h_j(k)p_{ik}\le \sum_{k\neq j}h_j(k)p_{ik}+p_{ij}=h_j(i)$. Therefore $h_j\equiv c_j$ is constant and $p_{ij}=p_{ij}c_j$. If $p_{ij}=0$ for all $i$ then the function $\delta_j$ would be $P$-super-harmonic and non-constant, and so $c_j=1$. \\\\
 
+
+id bs. Fact: Let $X$ be a random variable with distribution function $F$ and characteristic function $\vphi(\theta)=\E[e^{i\theta X}]$. Then for all $a<b$ $$\frac{1}{2\pi i}\int_{-T}^T\dfrac{e^{-i\theta a}-e^{-i\theta b}}{\theta}\vphi(\theta)\d \theta \underset{T\to\infty}{\longrightarrow} \P[x\in(a,b)] + \frac{1}{2}\P[X\in\set{a,b}]$$
+In particular, the characteristic function of $X$ determines (the distribution of) $X$. Specifically, if $\int_\R|\vphi| < \infty$ then $X$ has a density function $f$, and we have
+$$f(x)=\dfrac{1}{2\pi}\int_\R e^{-i\theta x}\vphi(\theta)\d \theta\tabb\tabb\vphi(\theta)=\int_\R e^{i\theta x}f(x)\d x$$
+\\
+
+
+id bv. Fact: Let $(X_n)$ be a sequence of \iid random variables with mean $\mu$ and variance $\sigma^2$. Then for all $a\in\R$ we have
+$$\lim_{n\to\infty}\P\fit{\frac{1}{n}(X_1+\dots+X_n)-\mu \le a\frac{\sigma}{\sqrt{n}}}=\dfrac{1}{\sqrt{2\pi}}\int_{-\infty}^a e^{-\frac{1}{2}x^2}\d x$$
+\\
+
+
+id bv. Explanation: We first show the point-wise convergence of the characteristic functions $\vphi_{G_n}(\theta)$ to the characteristic function of the standard normal. Indeed, $\vphi_{G_n}(\theta)={\vphi\fit{\frac{\theta}{\sqrt{n}\sigma}}}^n$ where $\vphi$ is the characteristic function of $X_i-\mu$. Recall [??] that $\vphi(\alpha)=1-\fit{\frac{1}{2}\sigma^2+o(1)}\alpha^2$ as $\alpha\to 0$. Thus $\vphi_{G_n}(\theta)=\fit{1-{\frac{{\theta^2/2}+o(1)}{n}}}^n$ converges to $e^{-\frac{1}{2}\theta^2}$ as $n$ approaches infinity [bq]. It remains to show the following.   \\\\
+
+
+Nomenclature. A sequence $(F_n)$ of distribution functions {\it weakly converge} to a distribution function $F$ if $$\lim_{n\to\infty}F_n(x)=F(x)$$
+for all points of continuity $x$ of $F$.    \\\\
+
+
+id bw. Fact: Let $F_n$ be a sequence of distribution functions. Assuming the point-wise convergence of the characteristic functions $\vphi_{F_n}(\theta)$ to a function $g(\theta)$ continuous at $0$. Then $F_n$ weakly converge to a distribution function $F$ and $g(\theta)=\vphi_F(\theta)$ is its characteristic function. 
 
 
 \newpage
@@ -288,7 +477,6 @@ id bl. Explanation: \\
 \v We may assume $f$ is a character of $G$. If $f\in H^\perp$ the formula is clear. If $f\nin H^\perp$ then $f\rvert_H$ is a non-trivial character on $H$ so that the lhs vanishes, as does the right.  \\\\
 
 
-\subsection*{Applications}
 Nomenclature. A society has voters and politicians. A {\it voting system} is a mapping, taking in a linear preference of the politicians from each voter, and returning a linear preference of the politicians. The {\it majority} system works if there's an odd number of voters and two politicians, and ranks on top the politician the majority of voters ranked on top. The majority system is pretty fair, and on the other spectrum we have a {\it dictatorship}: a system which always returns the preferences of one specific voter, the dictator.    \\
 
 
@@ -321,7 +509,53 @@ Now a character $\psi$ corresponds to a set $S$ via $\psi(x)=\prod_{s\in S}x_s$.
 $$1 = \sum_{S\sub[n]}-\fit{-\frac{1}{3}}^{\abs{S}}\fit{\hat{f}\hat{g}+\hat{g}\hat{h}+\hat{h}\hat{f}}(S)$$
 Now $\hat{f}(\empty)=\hat{g}(\empty)=\hat{h}(\empty)=0$ by assumption \iii Moreover $\abs{r_1r_2+r_2r_3+r_3r_1}\le r_1^2+r_2^2+r_3^2$ for real $r_i$ so 
 $$1\le \sum_{\empty\neq S\sub[n]}\dfrac{\hat{f}(S)^2+\hat{g}(S)^2+\hat{h}(S)^2}{3^S}\le \dfrac{\inner{f,f}+\inner{g,g}+\inner{h,h}}{3}=1$$
-implying the only non-trivial coefficients are singletons, so $f,g,h$ are linear functions. Since they only take two values, they're of the form $f(x)=\pm x_j$, $g(y)=\pm y_k$, $h(z)=\pm z_\ell$. Assumption \i yields positive signs, and it's easy to see $j=k=\ell$ is a dictator.
+implying the only non-trivial coefficients are singletons, so $f,g,h$ are linear functions. Since they only take two values, they're of the form $f(x)=\pm x_j$, $g(y)=\pm y_k$, $h(z)=\pm z_\ell$. Assumption \i yields positive signs, and it's easy to see $j=k=\ell$ is a dictator. \\\\
+
+
+id bt. Fact: The set of homomorphisms $G\to\F^\times$ is a linear independent set in $G\to \F$. In particular, if $G$ is finite then $G$ admits at most $\abs{G}$ homomorphisms to $\F^\times$. \\\\
+
+
+id bt. Explanation: Let $\phi_1,\dots,\phi_n$ be distinct homomorphisms and suppose $\sum_i \alpha_i\phi_i\equiv 0$. We have 
+$$\sum_i \alpha_i\phi_i(h)\phi_i(g)=\sum_i \alpha_i\phi_i(hg)=0=\sum_i \alpha_i\phi_i(g)=\sum_i \alpha_i\phi_n(h)\phi_i(g)=$$
+We may inductively assume $\phi_1,\dots,\phi_{n-1}$ are linearly independent. This yields $\alpha_i\phi_i(h)=\alpha_i\phi_n(h)$ $\forall i\in[n-1], h$ so $\alpha_1=\dots=\alpha_{n-1}=0\implies \alpha_n=0$.\\\\
+
+
+id bz. Fact: The groups $\GL(3,2)$ and $\PSL(2,7)$ are isomorphic.  \\\\
+
+
+id bz. Explanation: Both groups have order $168$. We shall find an isomorphism $\Psi:\PSL(2,7)\to\GL(3,2)$. As a $3$-dimensional $\F_2$ vector space we take $\F_8$, realized as $\F_2[t]/\gen{t^3+t+1}$ with $\alpha=\bar{t}$ being a generator for $\F_8^\times$. Thus ${\F_7}\cup\set{\infty}\longleftrightarrow\F_8=\set{\alpha^i}_{i=0}^6\cup\set{0}$ via $i\longleftrightarrow \alpha^i$, writing $\alpha^\infty=0$. Given a Möbius transformation $h$ of ${\F_7}\cup\set{\infty}$, set $T_h=\Psi(h):\F_8\to\F_8$, $\alpha^i\mapsto \alpha^{f(i)}+\alpha^{f(\infty)}$. Let us consider $3$ examples. If $h(z)=2z$ then $T_h(\gamma)=\gamma^2$. If $h(z)=z+1$ then $T_h(\gamma)=\alpha\gamma$. If $h(z)=-1/z$ then $T_h(b_0+b_1\alpha+b_2\alpha^2)=b_0+b_2\alpha+b_1\alpha^2$. The three Möbius transformations generate $\PSL(2,7)$, their images under $\Psi$ are additive functions of $\F_8$. We have that $\Psi$ is a homomorphism, since if  $f,g\in\PSL(2,7)$ are such that $\Psi_f,\Psi_g$ are additive, then by definition $\Psi_{f\circ g}=\Psi_f\circ\Psi_g$. Finally, $\Psi$ is a bijection, either because $\PSL(2,7)$ is simple and $\Psi$ is non-trivial, or because the above $3$ transformations generate $\GL(3,2)$. \\\\
+
+
+id bz. Explanation 2: The group $\PSL(2,7)$ acts on size $4$ subsets of $\F_7\cup\set{\infty}$. The orbit of $\set{0,1,3,\infty}$ is:\\
+$\set{0,1,3,\infty}, \set{2,4,5,6}$\\
+$\set{1,2,4,\infty}, \set{3,5,6,0}$\\
+$\set{2,3,5,\infty}, \set{4,6,0,1}$\\
+$\set{3,4,6,\infty}, \set{5,0,1,2}$\\
+$\set{4,5,0,\infty}, \set{6,1,2,3}$\\
+$\set{5,6,1,\infty}, \set{0,2,3,4}$\\
+$\set{6,0,2,\infty}, \set{1,3,4,5}$\\
+These $14$ sets form a block design - every $3$ elements of $\F_7\cup\set{\infty}$ belong to precisely one set. In fact, the $14$ affine planes of $\F_2^3$ form an isomorphic design. For example we can match\\ 
+$\infty\longleftrightarrow (0,0,0)$\\
+$0\longleftrightarrow (1,0,0)$\\
+$1\longleftrightarrow (0,1,0)$\\
+$2\longleftrightarrow (0,0,1)$\\
+$3\longleftrightarrow (1,1,0)$\\
+$4\longleftrightarrow (0,1,1)$\\
+$5\longleftrightarrow (1,1,1)$\\
+$6\longleftrightarrow (1,0,1)$\\
+Now, the group of automorphisms of the design is clearly the affine group $G=\set{v\mapsto Av+b:A\in\GL(3,2), b\in\F_2^3}$ and so we have a homomorphism $\PSL(2,7)\to G$. Composing with $G\to\GL(3,2)$ (via $Av+b\mapsto A$) we have $\PSL(2,7)\to \GL(3,2)$. But both groups have the same order $(168)$, the first is simple, and the homomorphism is non-trivial, so it is an isomorphism.\\\\
+
+
+id cd. Fact: Any symmetric polynomial in $x_1,\dots,x_n$ can be expressed as a polynomial in the esp's $e_1,\dots,e_n$.\\\\
+
+
+id cd. Explanation: We give a recursive algorithm. If $n=1$ then $e_1=x_1$ and we're done. If $P(x_1,\dots,x_n)$ is our symmetric polynomial, then $Q(x_1,\dots,x_{n-1})=P(x_1,\dots,x_{n-1},0)$ [namely the constant term of $P$ when expressed as a polynomial of $x_n$] is a symmetric polynomial of fewer variables, and we may express it as some polynomial $f$ of the esp's $e_1,\dots,e_{n-1}$ of $x_1,\dots,x_n$. A neat observation is that $e_i(x_1,\dots,x_{n-1})=e_i(x_1,\dots,x_{n-1},0)$, which suggests to look at $D(x_1,\dots,x_n)=P-f(e_1(x_1,\dots,x_n)\dots,e_{n-1}(x_1,\dots,x_n)$. Now $D$ is symmetric in all $n$ variables, and $D(x_1,\dots,x_{n-1},0)\equiv 0$. This means $x_1$ divides $D$, and so $x_1\dots x_n$ divides $D$. In other words $D=e_n R$ for some symmetric polynomial $R$ of smaller degree than $P$.
+
+
+
+
+
+
 \newpage
 %   %   %   %   %   %   %   %   %   %   %   %   %   %   %   %
 % SECTION = CHAPTER 6 - ANALYSIS
@@ -387,7 +621,33 @@ id bj. Explanation: This is easy for $d=1,2$. For $d\ge 3$, we consider the volu
 id bk. Fact: Let $I,I_1,I_2,\dots$ be intervals with $I\sub\bigcup_{k}I_k$. Then $\len(I)\le\sum_k \len(I_k)$. \\\\
 
 
-id bk. Explanation: We first assume $I$ is compact and all the $I_k$ are open. Thus $I\sub I_1\cup\dots\cup I_N$ for some $N$, and we'll show $\len(I)\le\len(I_1)+\dots+\len(I_N)$ by induction on $N$. The base case is trivial. For the step, assume wlog $m=\min I\in I_1=(\alpha,\beta)$. Then $[\beta,\max I]\sub I_2\cup\dots\cup I_N\implies \len(I)< \len(I_1)+\len\fit{[\beta,\max I]}\le \len(I_1)+\dots+\len(I_N)$. A second step is to remove the openness assumption on the $I_k$, but keep the compactness assumption on $I$. Let $J_k$ be the interior of $I_k$, and for some fixed $\eps$ let $L_k,R_k$ be open intervals of length $\eps/2^k$ around the left and right endpoints of $I_k$ (if one of the $I_k$ is infinite there's nothing to prove). We get that $\len(I)\le \sum \len(I_k)+2\eps$, and the desired inequality follows in the limit. The final step of removing the compactness assumption on $I$ is by an approximation of $I$ using compact intervals. 
+id bk. Explanation: We first assume $I$ is compact and all the $I_k$ are open. Thus $I\sub I_1\cup\dots\cup I_N$ for some $N$, and we'll show $\len(I)\le\len(I_1)+\dots+\len(I_N)$ by induction on $N$. The base case is trivial. For the step, assume wlog $m=\min I\in I_1=(\alpha,\beta)$. Then $[\beta,\max I]\sub I_2\cup\dots\cup I_N\implies \len(I)< \len(I_1)+\len\fit{[\beta,\max I]}\le \len(I_1)+\dots+\len(I_N)$. A second step is to remove the openness assumption on the $I_k$, but keep the compactness assumption on $I$. Let $J_k$ be the interior of $I_k$, and for some fixed $\eps$ let $L_k,R_k$ be open intervals of length $\eps/2^k$ around the left and right endpoints of $I_k$ (if one of the $I_k$ is infinite there's nothing to prove). We get that $\len(I)\le \sum \len(I_k)+2\eps$, and the desired inequality follows in the limit. The final step of removing the compactness assumption on $I$ is by an approximation of $I$ using compact intervals.    \\\\
+
+\newpage
+\subsection*{Proving the central limit theorem}
+
+
+We embark on a quest to prove the central limit theorem [bv]. Our best tool around independent random variables is interchanging expectation and products. The theorem has to do with sums rather than products, and this suggests raising an exponential.  \\\\ 
+
+
+Nomenclature. The {\it characteristic function} of a random variable $X$ is $\vphi(\theta)= \E[e^{i\theta X}]=\E\cos(\theta X)+i\E\sin(\theta X)$. \\\\
+
+
+id by. Examples:    \\
+\i $X\sim U[-1,1] \implies \vphi(\theta)=\frac{\sin(\theta)}{\theta}$   \\
+\ii $f(x)=\frac{1}{\pi(1+x^2)}\implies \vphi(\theta)=e^{-\abs{\theta}}$ \\
+\iii $X\sim N(0,1)\implies \vphi(\theta)=e^{-\frac{1}{2}\theta^2}$  \\
+\iv $X\sim\Exp(1)\implies \vphi(\theta)=\frac{1}{1-i\theta}$    \\
+\v $f(x)=\frac{e^{-\abs{x}}}{2}\implies \vphi(\theta)=\frac{1}{1+\theta^2}$     \\
+\vi $f(x)=(1-\abs{x})1_{\abs{x}\le1}\implies \vphi(\theta)=2\frac{1-\cos\left(\theta\right)}{\theta^{2}}$ \\
+\vii $f(x)=\frac{1-\cos x}{\pi x^2}\implies \vphi(\theta)=(1-\abs{\theta})1_{\abs{\theta}\le 1}$
+\\
+
+
+id bx. Fact: The characteristic function $\vphi=\vphi_X$ is a well-defined continuous function $\R\to\C$, bounded in absolute value by $1$, and mapping $0$ to $1$. We have
+$$\vphi_{aX+b}(\theta)=e^{i\theta b}\vphi_X(a\theta)$$ and $$\vphi_{X+Y}(\theta)=\vphi_X(\theta)\vphi_Y(\theta)$$
+if $X,Y$ are independent.\\
+
 
 
 
@@ -408,7 +668,7 @@ id ad. Let $e_n$ denote the $n$-th coordinate sequence, set $\alpha_n=f(e_n)$. W
 id ah. Subtracting a linear factor, we may assume $f(0)=f(1)=0$, with the intention of showing $f\equiv 0$. Let $f_\eps(t)=f(t)-\eps t(1-t)$. Then $\displaystyle\lim_{h\to 0}\dfrac{f_\eps(t_0+h)-2f_\eps(t_0)+f_\eps(t_0-h)}{h^2}=\eps$, implying $f_\eps$ does not attain its maximum at any inner point $t_0\in(0,1)$. Therefore $f_\eps\le 0$, and in the limit $f\le 0$. Applying the same to $-f$ we have $f\equiv 0$.   \\\\
 
 
-id ai. What demands proof is that all smooth/continuous homomorphisms are exponentials. Indeed, for $\phi$ smooth $$\phi(s+t)=\phi(s)\phi(t)\implies \phi'(s+t)=\phi'(s)\phi(t)\implies \phi'(t)=\phi'(0)\phi(t)\implies\phi(t)=\exp(t\phi'(0))$$
+id ai. What demands explanation is that all smooth/continuous homomorphisms are exponentials. Indeed, for $\phi$ smooth $$\phi(s+t)=\phi(s)\phi(t)\implies \phi'(s+t)=\phi'(s)\phi(t)\implies \phi'(t)=\phi'(0)\phi(t)\implies\phi(t)=\exp(t\phi'(0))$$
 It remains to show that a continuous homomorphism is smooth. Indeed, we have $\int_x^{x+a}\phi(t)\d t=\phi(x)\int_0^a\phi(t)\d t$. We pick a small enough $a$ so that $\frac{1}{a}\int_0^a\phi(t)\d t=\id + o(1)$ is invertible, yielding
 $$\phi(x)=\fit{\int_x^{x+a}\phi(t)\dt}\fit{\int_0^a\phi(t)\dt}\inv$$
 is smooth.  \\\\
@@ -419,8 +679,11 @@ id aj. Suppose $\sum a_n^2$ diverges, and form a partition $0=N_0<N_1<\dots$ for
 
 id aw. The number $100$ can only be the top card once, after that it will stay forever at the bottom. Between any two times the number $99$ is on top, $100$ has to be on top. Between any two times the number $98$ is on top, either $100$ or $99$ has to be on top, ..., between any two times the number $2$ is on top a number bigger than $2$ has to be on top. Therefore each number except for $1$ can only be on top finitely many times.  \\
 
-id aw. Solution 2. If $100$ ever becomes the top card, it'll later be stuck at the bottom. If not, the bottom card will never change, and the game will be indifferent to switching the numbers of the bottom card with $100$. So in either case we have an induction step. \\\\
+id aw. Solution 2. If $100$ ever becomes the top card, it'll later be stuck at the bottom. If not, the bottom card will never change, and the game will be indifferent to switching the numbers of the bottom card with $100$. So in either case we have an induction step. \\
 
+id aw. Solution 3. Let the score of a deck be the sum of $2^i$ for the cards $i$ placed correctly at $i$. If the top card $k$ is not one, the score grows: a $2^k$ is added and at worst $1+2+\dots+2^{k-1}$ is subtracted. Since the score can't grow forever, eventually the top card becomes $1$.    \\
+
+id aw. Solution 4. Eventually the state of the deck enters a loop. Once we're in the loop, the maximal number appearing on top has to be $1$, otherwise the remaining numbers on top would keep it away from comming back on top.   \\\\
 
 id bh. Explanation: \\
 \i we have $\E[f(S_n)]=\int_{x_i\ge0}f(\sum x_i)\lambda^n e^{-\lambda\sum x_i}\d x_1...\d x_n$. Change variables to $y_i=x_i$ for $i<n$ and $t=\sum x_i$. The Jacobian is $1$, the domain $0\le y_i, \sum y_i\le t$, and we get $\lambda^n\int_{t=0}^{\infty}\d t f(t)e^{-\lambda t} \int_{y_i\ge 0, \sum y_i\le t}\d y_1...\d y_{n-1} $. We recognise the inner volume as $\frac{t^{n-1}}{(n-1)!}$. Finally, $\frac{\d^{n-1} \LL[f](\lambda)}{\d \lambda^{n-1}}=\int_0^{\infty} (-x)^{n-1} e^{-\lambda x}f(x)\d x$.  \\
@@ -429,9 +692,14 @@ id bh. Explanation: \\
 
 id br. Let $Z_k$ be our capital after the $k$-th bet. We have $\E[Z_{k+1}|Z_k]\le 2pZ_k$, with equality iff we bet all our money on the $k+1$-st round. Thus the strategy maximizing $\E[Z_n]$ is to always bet everything, and has a value of $\$(2p)^n$. This strategy is extremely risky, since only in probability $p^n$ we don't lose our initial investment. Replacing the utility $Z$ by $\log(Z)$ has two effects: it greatly punishes losing all your capital, and returns are diminishing. Now if we wager a proportion $\alpha$ of our capital $Z_k$ in the $k+1$-st round we'll have $\E[\log(Z_{k+1})| Z_k,\alpha]=p\log(Z_k(1+\alpha)) + q\log(Z_k(1-\alpha))$ where $q=1-p$. This is maximized for $\alpha=2p-1$. Thus the optimal strategy always wager a proportion of $2p-1$ of our capital (which could be guessed, since for $p=1/2$ we'd not wager anything and for $p=1$ we'd be all in). This strategy has $\E[\log(Z_n)]=n(p\log p +q\log q+\log 2)$.   \\
 
-id br. engineer's solution: Suppose we always wager a fixed proportion $\alpha$ of our capital. We'll have approximately $pn$ wins and $qn$ losses, meaning $Z_n\approx (1+\alpha)^{pn}(1-\alpha)^{qn}$. Thus $\log(Z_n)\approx n(p\log(1+\alpha)+q\log(1-\alpha))$ is to be maximized, as before.
+id br. engineer's solution: Suppose we always wager a fixed proportion $\alpha$ of our capital. We'll have approximately $pn$ wins and $qn$ losses, meaning $Z_n\approx (1+\alpha)^{pn}(1-\alpha)^{qn}$. Thus $\log(Z_n)\approx n(p\log(1+\alpha)+q\log(1-\alpha))$ is to be maximized, as before.  \\\\
 
 
+id bu. Let $q_n$ be an enumeration of $\Q$. Let $s_0(n)=n$ and $s_{k}(n)$ a sub-sequence of $s_{k-1}(n)$ for which $F_{s_k(n)}(q_k)$ converges. Let $s(n)=s_n(n)$. Then $H(q)=\lim_n F_{s(n)}(q)$ exists for all $q\in\Q$. We take $F(x)=\displaystyle\inf_{q>x}H(q)$. Note that $H,F$ are weakly-increasing and take values in $[0,1]$. Let us show that $F$ is right-continuous: If $x,\eps$ are given we may find $x<q$ so that $H(q)\le F(x)+\eps$. It follows that for any $x\le y<q$ we have $F(x)\le F(y)\le F(x)+\eps$. For any $x$ we have 
+$$\sup_{q<x}H(q)=\sup_{q<x}\lim_n F_{s(n)}(q)\le \liminf_n F_{s(n)}(x)\le \limsup_n F_{s(n)}(x)\le\inf_{x<q'}\lim_n F_{s(n)}(q')=\inf_{x<q'}H(q')=F(x)$$
+Now, if $x$ is a continuity point of $F$, we fix rational sequences $x-\frac{1}{n}< r^1_n<r^2_n<x$ so that $F(x)\leftarrow F(r^1_n)\le H(r^2_n)\le \sup_{q<x} H(q)$ which yields $\lim_n F_{s(n)}(x)=F(x)$. The last part is immediate. \\\\
+
+id cf. The numbers $5$ and $504$ are related by [ce] where $L(\tau)=\dfrac{1}{504}\fit{1-\dfrac{27g_3(\tau)}{8\pi^6}}=\sum_{\ell}\sigma_5(\ell)q^\ell=\sum_{k,n}k^5q^{kn}=\sum_k\dfrac{k^5 q^k}{1-q^k}=R(q)$. We are almost there, except we want $1+q^k$ in our denominator, and only odd $k$. Here we need the following: $\dfrac{q^k}{1+q^k}=\dfrac{q^k}{1-q^k}-2\dfrac{q^{2k}}{1-q^{2k}}$. Hence $F(q)=\displaystyle\sum_{2\nmid k}\dfrac{k^5q^k}{1+q^k}=R(q)-32R(q^2) - 2\fit{R(q^2)-32R(q^4)}=R(q)-34R(q^2)+64R(q^4)$. However, $G_6(i)=0$ and $G_6(i/2)=-64G_g(2i)$ and so the $g_3$ parts cancel and we are left with $F(\tau=i/2, q=e^{-\pi})=31/504$.
 
 
 \newpage
@@ -452,5 +720,17 @@ id bg. The given explanation is attributed to S. Vishwanathan.  \\\\
 
 
 id bm. The Fact is attributed to F.J. MacWilliams.  \\\\
+
+
+id bv. The fact is known as the {\it central limit theorem}.    \\\\
+
+
+id bw. The fact is attributed to Lévy.  \\\\
+
+
+id bz. The explanation is due to E. Brown and N. Loehr.\\\\
+
+
+id cn. The given explanation for \ii is due to Z.Y Kong and L.P Teo.\\\\
 
 \end{document}
